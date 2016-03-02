@@ -13,17 +13,14 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.UUID;
 
 public class MainScreenActivity extends Activity {
 
@@ -32,12 +29,11 @@ public class MainScreenActivity extends Activity {
     private Intent serviceIntent;
     private Button connectBut;
     private Button msgBut;
-    //Target NXTs for communication
-    final String nxt1 = "00:16:53:11:5B:09";
 
-    BluetoothAdapter localAdapter;
-    BluetoothSocket socket_nxt1;
-    boolean success=false;
+    private ImageButton upBut;
+    private ImageButton downBut;
+    private ImageButton leftBut;
+    private ImageButton rightBut;
 
     BT_Comm btComm;
 
@@ -57,8 +53,23 @@ public class MainScreenActivity extends Activity {
         connectBut = (Button) findViewById(R.id.connectButton);
         msgBut = (Button) findViewById(R.id.msgButton);
 
+        upBut = (ImageButton) findViewById(R.id.upButton);
+        downBut = (ImageButton) findViewById(R.id.downButton);
+        leftBut = (ImageButton) findViewById(R.id.leftButton);
+        rightBut = (ImageButton) findViewById(R.id.rightButton);
+
         connectBut.setOnClickListener(clickButton);
         msgBut.setOnClickListener(clickButton);
+
+        upBut.setOnClickListener(clickButton);
+        downBut.setOnClickListener(clickButton);
+        leftBut.setOnClickListener(clickButton);
+        rightBut.setOnClickListener(clickButton);
+
+        upBut.setOnTouchListener(touchButton);
+        downBut.setOnTouchListener(touchButton);
+        leftBut.setOnTouchListener(touchButton);
+        rightBut.setOnTouchListener(touchButton);
 
         CheckBlueTooth();
 
@@ -67,11 +78,8 @@ public class MainScreenActivity extends Activity {
         btComm = new BT_Comm();
     }
 
-    private View.OnClickListener clickButton = new View.OnClickListener()
-    {
-
-        public void onClick(View v)
-        {
+    private View.OnClickListener clickButton = new View.OnClickListener() {
+        public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.connectButton:
                     input();
@@ -80,14 +88,45 @@ public class MainScreenActivity extends Activity {
                     break;
                 case R.id.msgButton:
                     input();
-                    try {
-                        btComm.writeMessage(0);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    sendMessage(0);
+                    break;
             }
         }
+    };
 
+    private View.OnTouchListener touchButton = new View.OnTouchListener() {
+        public boolean onTouch(View v, MotionEvent event) {
+            int action = event.getAction();
+            if (action == MotionEvent.ACTION_DOWN)
+                switch (v.getId()) {
+                    case R.id.upButton:
+                        input();
+                        sendMessage(1);
+                        break;
+                    case R.id.downButton:
+                        input();
+                        sendMessage(2);
+                        break;
+                    case R.id.leftButton:
+                        input();
+                        sendMessage(3);
+                        break;
+                    case R.id.rightButton:
+                        input();
+                        sendMessage(4);
+                        break;
+                }
+            else if (action == MotionEvent.ACTION_UP)
+                switch (v.getId()) {
+                    case R.id.upButton:
+                    case R.id.downButton:
+                    case R.id.leftButton:
+                    case R.id.rightButton:
+                        sendMessage(0);
+                        break;
+                }
+            return false;
+        }
     };
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -155,7 +194,15 @@ public class MainScreenActivity extends Activity {
 
     private void input() {
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
         v.vibrate(500);
+    }
+
+    public void sendMessage(int value){
+        try {
+            btComm.writeMessage(value);
+            Log.d(TAG,"" + value);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

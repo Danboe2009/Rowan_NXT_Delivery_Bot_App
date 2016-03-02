@@ -38,7 +38,7 @@
             <ImageButton
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:id="@+id/imageButton2"
+                android:id="@+id/upButton"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:src="@drawable/up"
@@ -48,7 +48,7 @@
             <ImageButton
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:id="@+id/imageButton4"
+                android:id="@+id/leftButton"
                 android:layout_row="1"
                 android:layout_column="0"
                 android:src="@drawable/left"
@@ -57,7 +57,7 @@
             <ImageButton
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:id="@+id/imageButton5"
+                android:id="@+id/downButton"
                 android:layout_row="1"
                 android:layout_column="1"
                 android:src="@drawable/down"
@@ -67,7 +67,7 @@
             <ImageButton
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:id="@+id/imageButton6"
+                android:id="@+id/rightButton"
                 android:layout_row="1"
                 android:layout_column="2"
                 android:src="@drawable/right"
