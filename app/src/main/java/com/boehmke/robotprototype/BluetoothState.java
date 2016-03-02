@@ -30,8 +30,8 @@ public class BluetoothState extends Service {
         super.onCreate();
         intent = new Intent(BROADCAST_ACTION);
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Service started", Toast.LENGTH_SHORT);
-        toast.show();
+        //Toast toast = Toast.makeText(getApplicationContext(), "Service started", Toast.LENGTH_SHORT);
+        //toast.show();
 
         Log.d("Robot Prototype", "Service Started.");
         handler.removeCallbacks(sendUpdatesToUI);
@@ -40,7 +40,7 @@ public class BluetoothState extends Service {
 
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
-            Log.d("Robot Prototype", "State Changed!");
+            //Log.d("Robot Prototype", "State Changed!");
             if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) {
                 intent.putExtra("State", "0");
             } else if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
@@ -52,8 +52,8 @@ public class BluetoothState extends Service {
     };
 
     public void onDestroy() {
-        Toast toast = Toast.makeText(getApplicationContext(), "Service Destroyed", Toast.LENGTH_SHORT);
-        toast.show();
+        //Toast toast = Toast.makeText(getApplicationContext(), "Service Destroyed", Toast.LENGTH_SHORT);
+        //toast.show();
     }
 
     @Nullable
