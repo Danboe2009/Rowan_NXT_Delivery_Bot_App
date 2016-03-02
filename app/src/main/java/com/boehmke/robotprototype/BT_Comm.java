@@ -16,6 +16,7 @@ public class BT_Comm {
 
     //Target NXTs for communication
     final String nxt1 = "00:16:53:11:5B:09";
+    private static final String TAG = "Robot Prototype";
 
     BluetoothAdapter localAdapter;
     BluetoothSocket socket_nxt1;
@@ -51,7 +52,7 @@ public class BT_Comm {
         return success;
     }
 
-    public void writeMessage(String nxt) throws InterruptedException {
+    public void writeMessage(int nxt) throws InterruptedException {
         BluetoothSocket connSock;
 
         connSock = socket_nxt1;
@@ -62,28 +63,25 @@ public class BT_Comm {
                 OutputStreamWriter out = new OutputStreamWriter(connSock.getOutputStream());
                 out.write(nxt);
                 out.flush();
-
+                Log.d(TAG, "Write Successful!");
                 Thread.sleep(1000);
 
 
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                Log.d(TAG, "Unable to write");
             }
         } else {
             //Error
         }
     }
 
-    public int readMessage(String nxt) {
+    public int readMessage() {
         BluetoothSocket connSock;
         int n;
-        //Swith nxt socket
-        if (nxt.equals("nxt1")) {
-            connSock = socket_nxt1;
-        } else {
-            connSock = null;
-        }
+
+        connSock = socket_nxt1;
 
         if (connSock != null) {
             try {

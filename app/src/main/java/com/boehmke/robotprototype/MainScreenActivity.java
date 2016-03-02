@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -73,12 +74,14 @@ public class MainScreenActivity extends Activity {
         {
             switch (v.getId()) {
                 case R.id.connectButton:
+                    input();
                     Boolean connected = btComm.connectToNXTs();
                     Log.d(TAG, connected.toString());
                     break;
                 case R.id.msgButton:
+                    input();
                     try {
-                        btComm.writeMessage("hello");
+                        btComm.writeMessage(0);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -150,77 +153,9 @@ public class MainScreenActivity extends Activity {
         }
     }
 
-    public  boolean connectToNXT(){
-        //get the BluetoothDevice of the NXT
-        BluetoothDevice nxt = localAdapter.getRemoteDevice(nxt1);
-        //try to connect to the nxt
-        try {
-            socket_nxt1 = nxt.createRfcommSocketToServiceRecord(UUID
-                    .fromString("00001101-0000-1000-8000-00805F9B34FB"));
-            socket_nxt1.connect();
-            success = true;
-        } catch (IOException e) {
-            Log.d(TAG,"Err: Device not found or cannot connect");
-            success=false;
-        }
-        return success;
-    }
-
-    public void writeMessage(byte msg, String nxt) throws InterruptedException{
-        BluetoothSocket connSock;
-        //Swith nxt socket
-        if(nxt.equals("nxt1")){
-            connSock=socket_nxt1;
-        }else{
-            connSock=null;
-        }
-
-        if(connSock!=null){
-            try {
-
-                OutputStreamWriter out=new OutputStreamWriter(connSock.getOutputStream());
-                out.write(msg);
-                out.flush();
-
-                Thread.sleep(1000);
-
-
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }else{
-            //Error
-        }
-    }
-
-    public int readMessage(String nxt){
-        BluetoothSocket connSock;
-        int n;
-        //Swith nxt socket
-        if(nxt.equals("nxt1")){
-            connSock=socket_nxt1;
-        }else{
-            connSock=null;
-        }
-
-        if(connSock!=null){
-            try {
-
-                InputStreamReader in=new InputStreamReader(connSock.getInputStream());
-                n=in.read();
-
-                return n;
-
-
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return -1;
-            }
-        }else{
-            //Error
-            return -1;
-        }
+    private void input() {
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
     }
 }
