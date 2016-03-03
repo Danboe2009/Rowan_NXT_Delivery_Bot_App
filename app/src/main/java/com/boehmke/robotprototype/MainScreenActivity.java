@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -20,12 +21,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainScreenActivity extends Activity {
 
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ImageView blue;
+    private TextView connection;
     private Intent serviceIntent;
     private Button connectBut;
     private Button msgBut;
@@ -35,7 +40,9 @@ public class MainScreenActivity extends Activity {
     private ImageButton leftBut;
     private ImageButton rightBut;
 
-    BT_Comm btComm;
+    private Boolean connected;
+
+    private BT_Comm btComm;
 
     private static final String TAG = "Robot Prototype";
 
@@ -49,6 +56,7 @@ public class MainScreenActivity extends Activity {
 
         blue = (ImageView) findViewById(R.id.idBlueState);
         serviceIntent = new Intent(this, BluetoothState.class);
+        connection = (TextView) findViewById(R.id.connection);
 
         connectBut = (Button) findViewById(R.id.connectButton);
         msgBut = (Button) findViewById(R.id.msgButton);
@@ -83,8 +91,13 @@ public class MainScreenActivity extends Activity {
             switch (v.getId()) {
                 case R.id.connectButton:
                     input();
-                    Boolean connected = btComm.connectToNXTs();
+                    connected = btComm.connectToNXTs();
                     Log.d(TAG, connected.toString());
+                    if (connected == true) {
+                        connection.setText("Connected");
+                        connection.setTextColor(Color.GREEN);
+                    }
+                    setVisible();
                     break;
                 case R.id.msgButton:
                     input();
@@ -164,12 +177,13 @@ public class MainScreenActivity extends Activity {
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-                                Intent intent = new Intent(Intent.ACTION_MAIN);
+                                /*Intent intent = new Intent(Intent.ACTION_MAIN);
                                 intent.addCategory(Intent.CATEGORY_HOME);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 // Do nothing
-                                dialog.dismiss();
+                                dialog.dismiss();*/
+                                System.exit(0);
 
                                 break;
                         }
@@ -197,10 +211,29 @@ public class MainScreenActivity extends Activity {
         v.vibrate(500);
     }
 
-    public void sendMessage(int value){
+    private void setVisible() {
+        if(connected)
+        {
+            upBut.setVisibility(View.VISIBLE);
+            downBut.setVisibility(View.VISIBLE);
+            leftBut.setVisibility(View.VISIBLE);
+            rightBut.setVisibility(View.VISIBLE);
+            msgBut.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            upBut.setVisibility(View.INVISIBLE);
+            downBut.setVisibility(View.INVISIBLE);
+            leftBut.setVisibility(View.INVISIBLE);
+            rightBut.setVisibility(View.INVISIBLE);
+            msgBut.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void sendMessage(int value) {
         try {
             btComm.writeMessage(value);
-            Log.d(TAG,"" + value);
+            Log.d(TAG, "" + value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
