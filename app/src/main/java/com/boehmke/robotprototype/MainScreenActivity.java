@@ -3,8 +3,6 @@ package com.boehmke.robotprototype;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,18 +17,18 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class MainScreenActivity extends Activity {
 
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ImageView blue;
     private TextView connection;
+    private EditText messageText;
     private Intent serviceIntent;
     private Button connectBut;
     private Button msgBut;
@@ -57,6 +55,7 @@ public class MainScreenActivity extends Activity {
         blue = (ImageView) findViewById(R.id.idBlueState);
         serviceIntent = new Intent(this, BluetoothState.class);
         connection = (TextView) findViewById(R.id.connection);
+        messageText = (EditText) findViewById(R.id.messageText);
 
         connectBut = (Button) findViewById(R.id.connectButton);
         msgBut = (Button) findViewById(R.id.msgButton);
@@ -101,7 +100,8 @@ public class MainScreenActivity extends Activity {
                     break;
                 case R.id.msgButton:
                     input();
-                    sendMessage(0);
+                    //Log.d(TAG,"" + Integer.valueOf(messageText.getText().toString()));
+                    sendMessage(Integer.valueOf(messageText.getText().toString()));
                     break;
             }
         }
@@ -115,27 +115,35 @@ public class MainScreenActivity extends Activity {
                     case R.id.upButton:
                         input();
                         sendMessage(1);
+                        driving();
                         break;
                     case R.id.downButton:
                         input();
                         sendMessage(2);
+                        driving();
                         break;
                     case R.id.leftButton:
                         input();
-                        sendMessage(3);
+                        sendMessage(4);
+                        driving();
                         break;
                     case R.id.rightButton:
                         input();
-                        sendMessage(4);
+                        sendMessage(5);
+                        driving();
                         break;
                 }
             else if (action == MotionEvent.ACTION_UP)
                 switch (v.getId()) {
                     case R.id.upButton:
                     case R.id.downButton:
+                        sendMessage(0);
+                        stopped();
+                        break;
                     case R.id.leftButton:
                     case R.id.rightButton:
-                        sendMessage(0);
+                        sendMessage(3);
+                        stopped();
                         break;
                 }
             return false;
@@ -233,9 +241,20 @@ public class MainScreenActivity extends Activity {
     public void sendMessage(int value) {
         try {
             btComm.writeMessage(value);
-            Log.d(TAG, "" + value);
+            Log.d(TAG, "Message sent: " + value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void driving()
+    {
+        connection.setText("Driving");
+        connection.setTextColor(Color.GREEN);
+    }
+
+    public void stopped(){
+        connection.setText("Stopped");
+        connection.setTextColor(Color.RED);
     }
 }

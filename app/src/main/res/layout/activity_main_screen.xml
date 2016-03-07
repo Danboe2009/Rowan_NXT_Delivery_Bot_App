@@ -27,7 +27,9 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:visibility="invisible" />
+            android:visibility="visible" />
+
+
 
         <Button
             android:layout_width="wrap_content"
@@ -37,6 +39,22 @@
             android:layout_above="@id/msgButton"
             android:layout_gravity="left|bottom"
             android:visibility="invisible" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/messageText"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:layout_above="@id/setWaypoint"
+            android:layout_alignParentBottom="false"
+            android:layout_alignRight="@+id/setWaypoint"
+            android:layout_alignEnd="@+id/setWaypoint"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:autoText="false"
+            android:lines="1"
+            android:text="0" />
 
         <RelativeLayout
             android:layout_width="match_parent"
