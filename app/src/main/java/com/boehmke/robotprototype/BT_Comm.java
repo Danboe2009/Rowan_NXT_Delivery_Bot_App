@@ -1,16 +1,19 @@
 package com.boehmke.robotprototype;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.UUID;
+        import java.io.BufferedInputStream;
+        import java.io.BufferedReader;
+        import java.io.Flushable;
+        import java.io.IOException;
+        import java.io.InputStreamReader;
+        import java.io.OutputStreamWriter;
+        import java.util.UUID;
 
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
+        import android.bluetooth.BluetoothAdapter;
+        import android.bluetooth.BluetoothDevice;
+        import android.bluetooth.BluetoothSocket;
 
-import android.util.Log;
+        import android.util.Log;
 
 public class BT_Comm {
 
@@ -74,21 +77,26 @@ public class BT_Comm {
         }
     }
 
-    public int readMessage() {
+    public float readMessage() {
         BluetoothSocket connSock;
-        int n;
+        float x;
+        float y;
 
         connSock = socket_nxt1;
 
         if (connSock != null) {
             try {
+                //Log.d(TAG,"line 1");
+                //InputStreamReader in = new InputStreamReader(connSock.getInputStream());
+                BufferedReader in = new BufferedReader(new InputStreamReader(connSock.getInputStream()));
+                //Log.d(TAG,"line 2");
+                x = Float.parseFloat(in.readLine());
+                y = Float.parseFloat(in.readLine());
+                Log.d(TAG, "X = " + x);
+                Log.d(TAG, "Y = " + y);
 
-                InputStreamReader in = new InputStreamReader(connSock.getInputStream());
-                n = in.read();
 
-                return n;
-
-
+                return x;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -98,7 +106,5 @@ public class BT_Comm {
             //Error
             return -1;
         }
-
     }
-
 }

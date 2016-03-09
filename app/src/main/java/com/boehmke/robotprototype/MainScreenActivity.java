@@ -28,10 +28,12 @@ public class MainScreenActivity extends Activity {
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ImageView blue;
     private TextView connection;
+    private TextView currentX;
     private EditText messageText;
     private Intent serviceIntent;
     private Button connectBut;
     private Button msgBut;
+    private Button readBut;
 
     private ImageButton upBut;
     private ImageButton downBut;
@@ -55,10 +57,12 @@ public class MainScreenActivity extends Activity {
         blue = (ImageView) findViewById(R.id.idBlueState);
         serviceIntent = new Intent(this, BluetoothState.class);
         connection = (TextView) findViewById(R.id.connection);
+        currentX = (TextView) findViewById(R.id.currentX);
         messageText = (EditText) findViewById(R.id.messageText);
 
         connectBut = (Button) findViewById(R.id.connectButton);
         msgBut = (Button) findViewById(R.id.msgButton);
+        readBut = (Button) findViewById(R.id.readButton);
 
         upBut = (ImageButton) findViewById(R.id.upButton);
         downBut = (ImageButton) findViewById(R.id.downButton);
@@ -67,6 +71,7 @@ public class MainScreenActivity extends Activity {
 
         connectBut.setOnClickListener(clickButton);
         msgBut.setOnClickListener(clickButton);
+        readBut.setOnClickListener(clickButton);
 
         upBut.setOnClickListener(clickButton);
         downBut.setOnClickListener(clickButton);
@@ -102,6 +107,10 @@ public class MainScreenActivity extends Activity {
                     input();
                     //Log.d(TAG,"" + Integer.valueOf(messageText.getText().toString()));
                     sendMessage(Integer.valueOf(messageText.getText().toString()));
+                    break;
+                case R.id.readButton:
+                    input();
+                    readMessage();
                     break;
             }
         }
@@ -185,12 +194,6 @@ public class MainScreenActivity extends Activity {
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-                                /*Intent intent = new Intent(Intent.ACTION_MAIN);
-                                intent.addCategory(Intent.CATEGORY_HOME);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                // Do nothing
-                                dialog.dismiss();*/
                                 System.exit(0);
 
                                 break;
@@ -227,6 +230,7 @@ public class MainScreenActivity extends Activity {
             leftBut.setVisibility(View.VISIBLE);
             rightBut.setVisibility(View.VISIBLE);
             msgBut.setVisibility(View.VISIBLE);
+            currentX.setVisibility(View.VISIBLE);
         }
         else
         {
@@ -247,6 +251,12 @@ public class MainScreenActivity extends Activity {
         }
     }
 
+    public void readMessage() {
+        float msg = btComm.readMessage();
+        Log.d(TAG, "Message read: " + msg);
+        currentX.setText("" + msg);
+    }
+
     public void driving()
     {
         connection.setText("Driving");
@@ -256,5 +266,6 @@ public class MainScreenActivity extends Activity {
     public void stopped(){
         connection.setText("Stopped");
         connection.setTextColor(Color.RED);
+        readMessage();
     }
 }
