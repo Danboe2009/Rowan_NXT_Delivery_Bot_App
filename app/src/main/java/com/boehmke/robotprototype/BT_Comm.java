@@ -95,6 +95,7 @@ public class BT_Comm {
                 Log.d(TAG, "X = " + x);
                 Log.d(TAG, "Y = " + y);
 
+                in.close();
 
                 return x;
             } catch (IOException e) {

@@ -252,6 +252,7 @@ public class MainScreenActivity extends Activity {
     }
 
     public void readMessage() {
+        sendMessage(8);
         float msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
         currentX.setText("" + msg);
@@ -266,6 +267,6 @@ public class MainScreenActivity extends Activity {
     public void stopped(){
         connection.setText("Stopped");
         connection.setTextColor(Color.RED);
-        readMessage();
+        //readMessage();
     }
 }
