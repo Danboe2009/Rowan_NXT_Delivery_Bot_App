@@ -34,6 +34,7 @@ public class MainScreenActivity extends Activity {
     private Button connectBut;
     private Button msgBut;
     private Button readBut;
+    private Button wayBut;
 
     private ImageButton upBut;
     private ImageButton downBut;
@@ -63,6 +64,7 @@ public class MainScreenActivity extends Activity {
         connectBut = (Button) findViewById(R.id.connectButton);
         msgBut = (Button) findViewById(R.id.msgButton);
         readBut = (Button) findViewById(R.id.readButton);
+        wayBut = (Button) findViewById(R.id.setWaypoint);
 
         upBut = (ImageButton) findViewById(R.id.upButton);
         downBut = (ImageButton) findViewById(R.id.downButton);
@@ -72,6 +74,7 @@ public class MainScreenActivity extends Activity {
         connectBut.setOnClickListener(clickButton);
         msgBut.setOnClickListener(clickButton);
         readBut.setOnClickListener(clickButton);
+        wayBut.setOnClickListener(clickButton);
 
         upBut.setOnClickListener(clickButton);
         downBut.setOnClickListener(clickButton);
@@ -111,6 +114,9 @@ public class MainScreenActivity extends Activity {
                 case R.id.readButton:
                     input();
                     readMessage();
+                    break;
+                case R.id.setWaypoint:
+                    openWaypoint();
                     break;
             }
         }
@@ -256,6 +262,11 @@ public class MainScreenActivity extends Activity {
         float msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
         currentX.setText("" + msg);
+    }
+
+    public void openWaypoint(){
+        Intent myIntent = new Intent(this,WaypointActivity.class);
+        startActivity(myIntent);
     }
 
     public void driving()

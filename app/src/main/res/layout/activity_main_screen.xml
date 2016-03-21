@@ -38,7 +38,7 @@
             android:id="@+id/setWaypoint"
             android:layout_above="@id/msgButton"
             android:layout_gravity="left|bottom"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <EditText
             android:layout_width="wrap_content"
