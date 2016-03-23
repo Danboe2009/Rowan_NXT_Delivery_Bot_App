@@ -139,12 +139,12 @@ public class MainScreenActivity extends Activity {
                         break;
                     case R.id.leftButton:
                         input();
-                        sendMessage(4);
+                        sendMessage(3);
                         driving();
                         break;
                     case R.id.rightButton:
                         input();
-                        sendMessage(5);
+                        sendMessage(4);
                         driving();
                         break;
                 }
@@ -152,12 +152,9 @@ public class MainScreenActivity extends Activity {
                 switch (v.getId()) {
                     case R.id.upButton:
                     case R.id.downButton:
-                        sendMessage(0);
-                        stopped();
-                        break;
                     case R.id.leftButton:
                     case R.id.rightButton:
-                        sendMessage(3);
+                        sendMessage(0);
                         stopped();
                         break;
                 }
@@ -236,6 +233,7 @@ public class MainScreenActivity extends Activity {
             leftBut.setVisibility(View.VISIBLE);
             rightBut.setVisibility(View.VISIBLE);
             msgBut.setVisibility(View.VISIBLE);
+            readBut.setVisibility(View.VISIBLE);
             currentX.setVisibility(View.VISIBLE);
         }
         else
@@ -258,7 +256,7 @@ public class MainScreenActivity extends Activity {
     }
 
     public void readMessage() {
-        sendMessage(8);
+        sendMessage(5);
         float msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
         currentX.setText("" + msg);

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1f1f1f"
+    android:background="@color/black"
     tools:context=".MainScreenActivity">
 
     <RelativeLayout
@@ -34,7 +34,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Waypoint"
+            android:text="Waypoints"
             android:id="@+id/setWaypoint"
             android:layout_above="@id/msgButton"
             android:layout_gravity="left|bottom"
@@ -62,7 +62,8 @@
             android:id="@+id/readButton"
             android:layout_above="@id/connectButton"
             android:layout_alignParentEnd="true"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:layout_alignParentRight="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"
