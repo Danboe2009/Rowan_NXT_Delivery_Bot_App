@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -15,14 +16,11 @@ import android.widget.Toast;
 public class WaypointActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     private Button saveBut;
-    private View.OnClickListener clickButton = new View.OnClickListener() {
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.saveButton:
-                    break;
-            }
-        }
-    };
+
+    private EditText nameEdit;
+    private EditText xEdit;
+    private EditText yEdit;
+    private EditText headEdit;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +38,28 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
 
         saveBut = (Button) findViewById(R.id.saveButton);
 
+        nameEdit = (EditText) findViewById(R.id.editName);
+        xEdit = (EditText) findViewById(R.id.editX);
+        yEdit = (EditText) findViewById(R.id.editY);
+        headEdit = (EditText) findViewById(R.id.editHeading);
+
+        nameEdit.setText("Elon Musk");
+        xEdit.setText("0.0");
+        yEdit.setText("0.0");
+        headEdit.setText("0.0");
+
         saveBut.setOnClickListener(clickButton);
     }
+
+    private View.OnClickListener clickButton = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.saveButton:
+                    makeWaypoint();
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -53,5 +71,12 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
+    }
+
+    public void makeWaypoint() {
+        Waypoint tempWay = new Waypoint(nameEdit.getText().toString(),
+                Float.parseFloat(xEdit.getText().toString()),
+                Float.parseFloat(yEdit.getText().toString()),
+                Float.parseFloat(headEdit.getText().toString()));
     }
 }
