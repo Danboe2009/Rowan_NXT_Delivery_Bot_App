@@ -10,10 +10,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by Dan Boehmke on 3/21/2016.
  */
 public class WaypointActivity extends Activity implements AdapterView.OnItemSelectedListener {
+
+    private ArrayList<Waypoint> points;
 
     private Button saveBut;
 
@@ -25,6 +29,8 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waypoints);
+
+        points = new ArrayList<Waypoint>();
 
         // Spinner element
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -78,5 +84,6 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
                 Float.parseFloat(xEdit.getText().toString()),
                 Float.parseFloat(yEdit.getText().toString()),
                 Float.parseFloat(headEdit.getText().toString()));
+        points.add(tempWay);
     }
 }

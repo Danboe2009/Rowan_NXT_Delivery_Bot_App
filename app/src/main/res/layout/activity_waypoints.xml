@@ -74,4 +74,11 @@
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/saveButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List Array"
+        android:id="@+id/arrayButton"
+        android:layout_gravity="right" />
 </LinearLayout>
