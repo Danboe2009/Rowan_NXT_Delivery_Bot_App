@@ -8,9 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Dan Boehmke on 3/21/2016.
  */

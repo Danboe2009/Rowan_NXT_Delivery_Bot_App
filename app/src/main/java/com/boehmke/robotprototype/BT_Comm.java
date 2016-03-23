@@ -1,19 +1,15 @@
 package com.boehmke.robotprototype;
 
-        import java.io.BufferedInputStream;
-        import java.io.BufferedReader;
-        import java.io.Flushable;
-        import java.io.IOException;
-        import java.io.InputStreamReader;
-        import java.io.OutputStreamWriter;
-        import java.util.UUID;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.util.Log;
 
-
-        import android.bluetooth.BluetoothAdapter;
-        import android.bluetooth.BluetoothDevice;
-        import android.bluetooth.BluetoothSocket;
-
-        import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.UUID;
 
 public class BT_Comm {
 
@@ -25,18 +21,6 @@ public class BT_Comm {
     BluetoothSocket socket_nxt1;
     boolean success = false;
 
-
-    //Enables Bluetooth if not enabled
-    public void enableBT() {
-        localAdapter = BluetoothAdapter.getDefaultAdapter();
-        //If Bluetooth not enable then do it
-        if (localAdapter.isEnabled() == false) {
-            localAdapter.enable();
-            while (!(localAdapter.isEnabled())) {
-
-            }
-        }
-    }
 
     //connect to both NXTs
     public boolean connectToNXTs() {
@@ -81,30 +65,36 @@ public class BT_Comm {
         BluetoothSocket connSock;
         float x;
         float y;
+        float h;
 
         connSock = socket_nxt1;
 
         if (connSock != null) {
             try {
-                //Log.d(TAG,"line 1");
+               //Log.d(TAG,"line 1");
                 //InputStreamReader in = new InputStreamReader(connSock.getInputStream());
                 BufferedReader in = new BufferedReader(new InputStreamReader(connSock.getInputStream()));
                 //Log.d(TAG,"line 2");
                 x = Float.parseFloat(in.readLine());
+                //Log.d(TAG,"line x");
                 y = Float.parseFloat(in.readLine());
+                //Log.d(TAG,"line y");
+                h = Float.parseFloat(in.readLine());
+                //Log.d(TAG,"line h");
                 Log.d(TAG, "X = " + x);
                 Log.d(TAG, "Y = " + y);
-
-                in.close();
+                Log.d(TAG, "h = " + h);
 
                 return x;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                Log.d(TAG,"Exception");
                 return -1;
             }
         } else {
             //Error
+            Log.d(TAG,"Error");
             return -1;
         }
     }
