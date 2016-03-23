@@ -113,7 +113,7 @@ public class MainScreenActivity extends Activity {
                 case R.id.msgButton:
                     input();
                     //Log.d(TAG,"" + Integer.valueOf(messageText.getText().toString()));
-                    sendMessage(Integer.valueOf(messageText.getText().toString()));
+                    sendMessage(messageText.getText().toString());
                     break;
                 case R.id.readButton:
                     input();
@@ -137,22 +137,22 @@ public class MainScreenActivity extends Activity {
                 switch (v.getId()) {
                     case R.id.upButton:
                         input();
-                        sendMessage(1);
+                        sendMessage("1");
                         driving();
                         break;
                     case R.id.downButton:
                         input();
-                        sendMessage(2);
+                        sendMessage("2");
                         driving();
                         break;
                     case R.id.leftButton:
                         input();
-                        sendMessage(3);
+                        sendMessage("3");
                         driving();
                         break;
                     case R.id.rightButton:
                         input();
-                        sendMessage(4);
+                        sendMessage("4");
                         driving();
                         break;
                 }
@@ -162,7 +162,7 @@ public class MainScreenActivity extends Activity {
                     case R.id.downButton:
                     case R.id.leftButton:
                     case R.id.rightButton:
-                        sendMessage(0);
+                        sendMessage("0");
                         stopped();
                         break;
                 }
@@ -254,7 +254,7 @@ public class MainScreenActivity extends Activity {
         }
     }
 
-    public void sendMessage(int value) {
+    public void sendMessage(String value) {
         try {
             btComm.writeMessage(value);
             Log.d(TAG, "Message sent: " + value);
@@ -264,7 +264,7 @@ public class MainScreenActivity extends Activity {
     }
 
     public void readMessage() {
-        sendMessage(5);
+        sendMessage("5");
         String msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
         currentX.setText("" + msg);
@@ -288,10 +288,10 @@ public class MainScreenActivity extends Activity {
     }
 
     public void testNav() {
-        sendMessage(6);
-        sendMessage(10);
-        sendMessage(0);
-        sendMessage(0);
-        sendMessage(-2);
+        sendMessage("6");
+        sendMessage("10");
+        sendMessage("0");
+        sendMessage("0");
+        sendMessage("-2");
     }
 }
