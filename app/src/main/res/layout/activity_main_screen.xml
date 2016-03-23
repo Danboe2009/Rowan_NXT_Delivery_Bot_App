@@ -61,7 +61,6 @@
             android:text="Read Message"
             android:id="@+id/readButton"
             android:layout_above="@id/connectButton"
-            android:layout_alignParentEnd="true"
             android:visibility="invisible"
             android:layout_alignParentRight="true" />
 
