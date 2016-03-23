@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -12,6 +13,16 @@ import android.widget.Toast;
  * Created by Dan Boehmke on 3/21/2016.
  */
 public class WaypointActivity extends Activity implements AdapterView.OnItemSelectedListener {
+
+    private Button saveBut;
+    private View.OnClickListener clickButton = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.saveButton:
+                    break;
+            }
+        }
+    };
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +37,10 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.office_arrays, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        saveBut = (Button) findViewById(R.id.saveButton);
+
+        saveBut.setOnClickListener(clickButton);
     }
 
     @Override
