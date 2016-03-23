@@ -6,9 +6,9 @@ import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.UUID;
 
 public class BT_Comm {
@@ -39,15 +39,15 @@ public class BT_Comm {
         return success;
     }
 
-    public void writeMessage(int nxt) throws InterruptedException {
+    public void writeMessage(float nxt) throws InterruptedException {
         BluetoothSocket connSock;
 
         connSock = socket_nxt1;
 
         if (connSock != null) {
             try {
-                OutputStreamWriter out = new OutputStreamWriter(connSock.getOutputStream());
-                out.write(nxt);
+                DataOutputStream out = new DataOutputStream(connSock.getOutputStream());
+                out.writeFloat(nxt);
                 out.flush();
                 //Log.d(TAG, "Write Successful!");
                 //Thread.sleep(1000);

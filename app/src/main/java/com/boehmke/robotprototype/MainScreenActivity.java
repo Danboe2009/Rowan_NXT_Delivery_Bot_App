@@ -78,6 +78,7 @@ public class MainScreenActivity extends Activity {
         msgBut.setOnClickListener(clickButton);
         readBut.setOnClickListener(clickButton);
         wayBut.setOnClickListener(clickButton);
+        testBut.setOnClickListener(clickButton);
 
         upBut.setOnClickListener(clickButton);
         downBut.setOnClickListener(clickButton);
@@ -122,6 +123,7 @@ public class MainScreenActivity extends Activity {
                     openWaypoint();
                     break;
                 case R.id.testButton:
+                    input();
                     testNav();
                     break;
             }
