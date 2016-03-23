@@ -9,6 +9,13 @@ public class Waypoint {
     private float y;
     private float heading;
 
+    public Waypoint(String name, float x, float y, float heading) {
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.heading = heading;
+    }
+
     public String getName() {
         return name;
     }
