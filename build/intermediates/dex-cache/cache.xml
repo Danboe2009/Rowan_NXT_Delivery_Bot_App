@@ -1,3 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\Danbo\Dropbox\Dan Boehmke\Topics in Mobile Programming\Mine\RobotPrototype\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\1a\dependencies.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a2c35ed80c5e4fe14a5ec6ff3a841ed89ac10a3f">
+        <dex dex="C:\Users\Danbo\Dropbox\Dan Boehmke\Topics in Mobile Programming\Mine\RobotPrototype\app\build\intermediates\transforms\dex\debug\folders\1000\1a\dependencies_9ad93e1f35a3e755a0b6c10b40b2f7d2c8911f0d\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Danbo\Dropbox\Dan Boehmke\Topics in Mobile Programming\Mine\RobotPrototype\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_slice.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="96adb1d1ffd720dae07a8809f57049135303c889">
+        <dex dex="C:\Users\Danbo\Dropbox\Dan Boehmke\Topics in Mobile Programming\Mine\RobotPrototype\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_slice_23328c483ca6712b0f6ec01e331ee865f669589b\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Danbo\Dropbox\Dan Boehmke\Topics in Mobile Programming\Mine\RobotPrototype\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_sliceb.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ce08cef50d7c01c31d9bde097f2922af071cef8e">
+        <dex dex="C:\Users\Danbo\Dropbox\Dan Boehmke\Topics in Mobile Programming\Mine\RobotPrototype\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_sliceb_4062ff9f20bc55db10f14e439f6ee56656b5d1fc\classes.dex" />
+    </item>
+
+</items>

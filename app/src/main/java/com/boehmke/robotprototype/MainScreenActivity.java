@@ -31,10 +31,12 @@ public class MainScreenActivity extends Activity {
     private TextView currentX;
     private EditText messageText;
     private Intent serviceIntent;
+
     private Button connectBut;
     private Button msgBut;
     private Button readBut;
     private Button wayBut;
+    private Button testBut;
 
     private ImageButton upBut;
     private ImageButton downBut;
@@ -65,6 +67,7 @@ public class MainScreenActivity extends Activity {
         msgBut = (Button) findViewById(R.id.msgButton);
         readBut = (Button) findViewById(R.id.readButton);
         wayBut = (Button) findViewById(R.id.setWaypoint);
+        testBut = (Button) findViewById(R.id.testButton);
 
         upBut = (ImageButton) findViewById(R.id.upButton);
         downBut = (ImageButton) findViewById(R.id.downButton);
@@ -117,6 +120,9 @@ public class MainScreenActivity extends Activity {
                     break;
                 case R.id.setWaypoint:
                     openWaypoint();
+                    break;
+                case R.id.testButton:
+                    testNav();
                     break;
             }
         }
@@ -257,7 +263,7 @@ public class MainScreenActivity extends Activity {
 
     public void readMessage() {
         sendMessage(5);
-        float msg = btComm.readMessage();
+        String msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
         currentX.setText("" + msg);
     }
@@ -276,6 +282,14 @@ public class MainScreenActivity extends Activity {
     public void stopped(){
         connection.setText("Stopped");
         connection.setTextColor(Color.RED);
-        //readMessage();
+        readMessage();
+    }
+
+    public void testNav() {
+        sendMessage(6);
+        sendMessage(10);
+        sendMessage(0);
+        sendMessage(0);
+        sendMessage(-2);
     }
 }
