@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -95,6 +96,12 @@ public class MainScreenActivity extends Activity {
         Log.d("Robot Prototype", "App Started.");
 
         btComm = new BT_Comm();
+
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            Toast.makeText(this, "No LE support.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "LE support.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private View.OnClickListener clickButton = new View.OnClickListener() {
