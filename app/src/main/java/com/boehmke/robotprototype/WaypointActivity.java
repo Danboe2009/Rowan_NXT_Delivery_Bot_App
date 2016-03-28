@@ -83,7 +83,8 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         Waypoint tempWay = new Waypoint(nameEdit.getText().toString(),
                 Float.parseFloat(xEdit.getText().toString()),
                 Float.parseFloat(yEdit.getText().toString()),
-                Float.parseFloat(headEdit.getText().toString()));
+                Float.parseFloat(headEdit.getText().toString()),
+                true);
         points.add(tempWay);
     }
 }
