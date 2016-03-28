@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class WaypointDatabaseHelper extends SQLiteOpenHelper {
 
     // Logcat tag
-    private static final String LOG = "Robot Prototype";
+    private static final String TAG = "Robot Prototype";
 
     // Database Constants
     private static final int DATABASE_VERSION = 1;
@@ -36,7 +36,7 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
 
     public WaypointDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
-        Log.d(LOG, "Database Loaded");
+        Log.d(TAG, "Database Loaded");
     }
 
     @Override
@@ -44,12 +44,12 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_WAYPOINTS + "(" +
                 KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WAYPOINT_NAME + " TEXT, " + WAYPOINT_X + " TEXT, " +
-                WAYPOINT_Y + " TEXT " + WAYPOINT_HEAD + " TEXT " +
+                WAYPOINT_Y + " TEXT, " + WAYPOINT_HEAD + " TEXT, " +
                 WAYPOINT_OFFICE + " TEXT " +
                 ");";
         db.execSQL(query);
-        Log.d(LOG, query);
-        Log.d(LOG, "Created");
+        Log.d(TAG, query);
+        Log.d(TAG, "Created");
     }
 
     @Override
@@ -66,17 +66,19 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
         values.put(WAYPOINT_HEAD, way.getHeading());
         values.put(WAYPOINT_OFFICE, way.isOffice());
 
-        Log.d(LOG, "Values = " + values.toString());
+        Log.d(TAG, "Values = " + values.toString());
 
         SQLiteDatabase db = getWritableDatabase();
         count = db.insert(TABLE_WAYPOINTS, null, values);
+        //Log.d(TAG, "count = " + count);
         db.close();
     }
 
-    public ArrayList<Waypoint> getTips() {
+    public ArrayList<Waypoint> getWaypoints() {
         int size = countCases();
+        //Log.d(TAG,"Size = " + size);
         if (size > 0) {
-            ArrayList<Waypoint> tempList = new ArrayList<>(size - 1);
+            ArrayList<Waypoint> tempList = new ArrayList<>();
 
             SQLiteDatabase db = this.getWritableDatabase();
             String query = "SELECT * FROM " + TABLE_WAYPOINTS + " WHERE 1";
@@ -115,44 +117,6 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return count;
     }
-
-    /*public Tip lastTip() {
-        Tip tempTip = new Tip();
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_TIPS + " WHERE 1";
-        Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
-
-        while(!cursor.isAfterLast())
-        {
-            tempTip.setId(Long.parseLong(cursor.getString(0)));
-            tempTip.setDateMillis(Long.parseLong(cursor.getString(1)));
-            tempTip.setBillAmount(Float.parseFloat(cursor.getString(2)));
-            tempTip.setTipPercent(Float.parseFloat(cursor.getString(3)));
-
-            cursor.moveToNext();
-        }
-        db.close();
-
-        return tempTip;
-    }
-
-    public float averageTipPercent() {
-        float tempAverage = 0.0f;
-        ArrayList<Tip> tempList = getTips();
-        if(tempList != null) {
-            int size = tempList.size();
-
-            for (int i = 0; i < size; i++) {
-                tempAverage += tempList.get(i).getTipPercent();
-            }
-
-            tempAverage = tempAverage / size;
-
-            return tempAverage;
-        }
-        return 0.0f;
-    }*/
 
     public void deleteWaypoint(String name) {
         SQLiteDatabase db = this.getWritableDatabase();

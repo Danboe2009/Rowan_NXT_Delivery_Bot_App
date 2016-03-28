@@ -40,7 +40,10 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waypoints);
 
+        database = new WaypointDatabaseHelper(this, null, null, 1);
+
         points = new ArrayList<>();
+        points = database.getWaypoints();
 
         // Spinner element
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -48,11 +51,13 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
 
-        for (Waypoint way : points) {
-            data.add(way.getName());
+        if (points != null) {
+            for (Waypoint way : points) {
+                data.add(way.getName());
+            }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, data);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -71,8 +76,6 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
 
         saveBut.setOnClickListener(clickButton);
         officeBox.setOnClickListener(clickButton);
-
-        database = new WaypointDatabaseHelper(this, null, null, 1);
     }
 
     private View.OnClickListener clickButton = new View.OnClickListener() {
@@ -108,8 +111,10 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
                 Float.parseFloat(yEdit.getText().toString()),
                 Float.parseFloat(headEdit.getText().toString()),
                 checked);
-        points.add(tempWay);
-
+        database.addWaypoint(tempWay);
+        Log.d(TAG, "Size after add = " + database.countCases());
+        //points.add(tempWay);
+        points = database.getWaypoints();
         for (Waypoint way : points) {
             data.add(way.getName());
         }
