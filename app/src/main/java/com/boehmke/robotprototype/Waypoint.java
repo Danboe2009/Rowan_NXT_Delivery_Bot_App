@@ -3,7 +3,7 @@ package com.boehmke.robotprototype;
 /**
  * Created by Dan Boehmke on 3/23/2016.
  */
-public class Waypoint {
+public class Waypoint implements java.io.Serializable {
     private long id;
     private String name;
     private float x;

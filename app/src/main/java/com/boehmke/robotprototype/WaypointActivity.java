@@ -1,15 +1,14 @@
 package com.boehmke.robotprototype;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,12 +16,13 @@ import java.util.ArrayList;
 /**
  * Created by Dan Boehmke on 3/21/2016.
  */
-public class WaypointActivity extends Activity implements AdapterView.OnItemSelectedListener {
+public class WaypointActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private ArrayList<Waypoint> points;
     private ArrayList<String> data = new ArrayList<>();
 
     private Button saveBut;
+    private Button listBut;
 
     private EditText nameEdit;
     private EditText xEdit;
@@ -31,8 +31,6 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
     private CheckBox officeBox;
 
     public static WaypointDatabaseHelper database;
-
-    private boolean checked;
 
     private static final String TAG = "Robot Prototype";
 
@@ -46,10 +44,10 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         points = database.getWaypoints();
 
         // Spinner element
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        //Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
+        //spinner.setOnItemSelectedListener(this);
 
         if (points != null) {
             for (Waypoint way : points) {
@@ -57,11 +55,12 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, data);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, data);
+        //adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
 
         saveBut = (Button) findViewById(R.id.saveButton);
+        listBut = (Button) findViewById(R.id.listButton);
 
         nameEdit = (EditText) findViewById(R.id.editName);
         xEdit = (EditText) findViewById(R.id.editX);
@@ -74,23 +73,27 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         yEdit.setText("0.0");
         headEdit.setText("0.0");
 
-        saveBut.setOnClickListener(clickButton);
-        officeBox.setOnClickListener(clickButton);
+        saveBut.setOnClickListener(this);
+        listBut.setOnClickListener(this);
     }
 
-    private View.OnClickListener clickButton = new View.OnClickListener() {
-        public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.saveButton:
                     makeWaypoint();
                     break;
-                case R.id.officeBox:
-                    CheckBox checkBox = (CheckBox) v;
-                    checked = checkBox.isChecked();
+                case R.id.listButton:
+                    if (database.countCases() > 0) {
+                        Intent myIntent = new Intent(this, WaypointHistoryActivity.class);
+                        myIntent.putExtra("waypoints", database.getWaypoints());
+                        startActivity(myIntent);
+                    } else {
+                        Toast.makeText(this, "Database is empty", Toast.LENGTH_LONG).show();
+                    }
                     break;
             }
         }
-    };
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -110,10 +113,9 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
                 Float.parseFloat(xEdit.getText().toString()),
                 Float.parseFloat(yEdit.getText().toString()),
                 Float.parseFloat(headEdit.getText().toString()),
-                checked);
+                officeBox.isChecked());
         database.addWaypoint(tempWay);
-        Log.d(TAG, "Size after add = " + database.countCases());
-        //points.add(tempWay);
+
         points = database.getWaypoints();
         for (Waypoint way : points) {
             data.add(way.getName());
