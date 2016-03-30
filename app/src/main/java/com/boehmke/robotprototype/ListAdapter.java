@@ -48,9 +48,13 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
             TextView tt3 = (TextView) v.findViewById(R.id.yTextView);
             TextView tt4 = (TextView) v.findViewById(R.id.headingTextView);
             Button deleteButton = (Button) v.findViewById(R.id.deleteButton);
+            Button navigateButton = (Button) v.findViewById(R.id.navigateButton);
 
             deleteButton.setOnClickListener(this);
-            deleteButton.setId((int) (p.getId()));
+            navigateButton.setOnClickListener(this);
+
+            deleteButton.setContentDescription(String.valueOf(p.getId()));
+            navigateButton.setContentDescription(String.valueOf(p.getId()));
 
             parentContext = parent.getContext();
 
@@ -76,9 +80,15 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, "onClick: " + v.getId());
-        Waypoint w = WaypointActivity.database.getWaypoint(v.getId());
+        switch (v.getId()) {
+            case R.id.deleteButton:
+                break;
+            case R.id.navigateButton:
+                Log.d(TAG, "onClick: " + v.getId());
+                Waypoint w = WaypointActivity.database.getWaypoint(v.getId());
         Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading(), Toast.LENGTH_SHORT).show();
         MainScreenActivity.navigate(w);
+                break;
+        }
     }
 }

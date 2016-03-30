@@ -76,6 +76,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Add Test Points"
+        android:id="@+id/testPointsButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Waypoints"
         android:id="@+id/listButton"
         android:layout_gravity="right" />

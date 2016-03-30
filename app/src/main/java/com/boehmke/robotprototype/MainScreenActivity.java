@@ -115,7 +115,7 @@ public class MainScreenActivity extends Activity {
                         connection.setText("Connected");
                         connection.setTextColor(Color.GREEN);
                     }
-                    setVisible();
+                    //setVisible();
                     break;
                 case R.id.msgButton:
                     input();

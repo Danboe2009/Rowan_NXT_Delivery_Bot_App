@@ -23,6 +23,7 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
 
     private Button saveBut;
     private Button listBut;
+    private Button pointsBut;
 
     private EditText nameEdit;
     private EditText xEdit;
@@ -61,6 +62,7 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
 
         saveBut = (Button) findViewById(R.id.saveButton);
         listBut = (Button) findViewById(R.id.listButton);
+        pointsBut = (Button) findViewById(R.id.testPointsButton);
 
         nameEdit = (EditText) findViewById(R.id.editName);
         xEdit = (EditText) findViewById(R.id.editX);
@@ -75,6 +77,7 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
 
         saveBut.setOnClickListener(this);
         listBut.setOnClickListener(this);
+        pointsBut.setOnClickListener(this);
     }
 
     @Override
@@ -91,6 +94,9 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
                     } else {
                         Toast.makeText(this, "Database is empty", Toast.LENGTH_LONG).show();
                     }
+                    break;
+                case R.id.testPointsButton:
+                    setTestPoints();
                     break;
             }
         }
@@ -120,5 +126,18 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         for (Waypoint way : points) {
             data.add(way.getName());
         }
+    }
+
+    public void setTestPoints() {
+        Waypoint zero = new Waypoint("Zero", 0, 0, 0, true);
+        database.addWaypoint(zero);
+        Waypoint one = new Waypoint("One", 315, 0, 0, true);
+        database.addWaypoint(one);
+        Waypoint two = new Waypoint("Two", 534, 0, 0, true);
+        database.addWaypoint(two);
+        Waypoint three = new Waypoint("Three", 1208, 0, 0, true);
+        database.addWaypoint(three);
+        Waypoint four = new Waypoint("Four", 1377, 0, 0, true);
+        database.addWaypoint(four);
     }
 }
