@@ -39,7 +39,7 @@ public class BT_Comm {
         return success;
     }
 
-    public void writeMessage(String nxt) throws InterruptedException {
+    public void writeMessage(int nxt) throws InterruptedException {
         BluetoothSocket connSock;
 
         connSock = socket_nxt1;
@@ -47,7 +47,7 @@ public class BT_Comm {
         if (connSock != null) {
             try {
                 DataOutputStream out = new DataOutputStream(connSock.getOutputStream());
-                out.writeUTF(nxt + "/n");
+                out.writeInt(nxt);
                 out.flush();
                 //Log.d(TAG, "Write Successful!");
                 //Thread.sleep(1000);

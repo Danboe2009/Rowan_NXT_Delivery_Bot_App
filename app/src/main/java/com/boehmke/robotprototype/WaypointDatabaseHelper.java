@@ -118,6 +118,30 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    public Waypoint getWaypoint(int id) {
+        Waypoint tempWay = new Waypoint();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_WAYPOINTS + " WHERE 1";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()) {
+            if (Long.parseLong(cursor.getString(0)) == id) ;
+            tempWay.setId(Long.parseLong(cursor.getString(0)));
+            tempWay.setName(cursor.getString(1));
+            tempWay.setX(Float.parseFloat(cursor.getString(2)));
+            tempWay.setY(Float.parseFloat(cursor.getString(3)));
+            tempWay.setHeading(Float.parseFloat(cursor.getString(4)));
+            tempWay.setOfficeString(cursor.getString(5));
+
+            cursor.moveToNext();
+        }
+        db.close();
+
+        return tempWay;
+    }
+
     public void deleteWaypoint(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_WAYPOINTS, KEY_ID + "=" + name, null);
