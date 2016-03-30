@@ -77,9 +77,8 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
     @Override
     public void onClick(View v) {
         Log.d(TAG, "onClick: " + v.getId());
-        Log.d(TAG, "Parent = " + v.getParent().toString());
-        Log.d(TAG, "X = " + p.getX() + " Y = " + p.getY() + " Heading + " + p.getHeading());
-        Toast.makeText(v.getContext(), "X = " + p.getX() + " Y = " + p.getY() + " Heading = " + p.getHeading(), Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Waypoint = " + WaypointActivity.database.getWaypoint(1));
+        Waypoint w = WaypointActivity.database.getWaypoint(v.getId());
+        Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading(), Toast.LENGTH_SHORT).show();
+        MainScreenActivity.navigate(w);
     }
 }

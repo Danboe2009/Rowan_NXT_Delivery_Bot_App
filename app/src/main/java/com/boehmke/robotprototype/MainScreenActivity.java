@@ -46,7 +46,7 @@ public class MainScreenActivity extends Activity {
 
     private Boolean connected;
 
-    private BT_Comm btComm;
+    private static BT_Comm btComm;
 
     private static final String TAG = "Robot Prototype";
 
@@ -261,7 +261,7 @@ public class MainScreenActivity extends Activity {
         }
     }
 
-    public void sendMessage(int value) {
+    public static void sendMessage(int value) {
         try {
             btComm.writeMessage(value);
             Log.d(TAG, "Message sent: " + value);
@@ -299,6 +299,14 @@ public class MainScreenActivity extends Activity {
         sendMessage(10);
         sendMessage(0);
         sendMessage(0);
+        sendMessage(-2);
+    }
+
+    public static void navigate(Waypoint w) {
+        sendMessage(6);
+        sendMessage((int) w.getX());
+        sendMessage((int) w.getY());
+        sendMessage((int) w.getHeading());
         sendMessage(-2);
     }
 }
