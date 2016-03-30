@@ -1,6 +1,7 @@
 package com.boehmke.robotprototype;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,12 +83,22 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.deleteButton:
+                Log.d(TAG, "Delete: " + v.getContentDescription());
+                WaypointActivity.database.deleteWaypoint(v.getContentDescription().toString());
+                Toast.makeText(v.getContext(), "Entry Deleted.", Toast.LENGTH_SHORT).show();
+                if (WaypointActivity.database.countCases() > 0) {
+                    Intent myIntent = new Intent(parentContext, WaypointHistoryActivity.class);
+                    myIntent.putExtra("waypoints", WaypointActivity.database.getWaypoints());
+                    parentContext.startActivity(myIntent);
+                } else {
+                    parentContext.startActivity(new Intent(parentContext, WaypointActivity.class));
+                }
                 break;
             case R.id.navigateButton:
-                Log.d(TAG, "onClick: " + v.getId());
-                Waypoint w = WaypointActivity.database.getWaypoint(v.getId());
-        Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading(), Toast.LENGTH_SHORT).show();
-        MainScreenActivity.navigate(w);
+                Log.d(TAG, "Navigate: " + v.getContentDescription());
+                Waypoint w = WaypointActivity.database.getWaypoint(Integer.parseInt(v.getContentDescription().toString()));
+                Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading(), Toast.LENGTH_SHORT).show();
+                MainScreenActivity.navigate(w);
                 break;
         }
     }
