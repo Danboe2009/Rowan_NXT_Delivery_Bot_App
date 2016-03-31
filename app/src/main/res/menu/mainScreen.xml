@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/preferences_tip"
+        android:title="@string/app_name"
+        android:icon="@drawable/robot64"
+        android:showAsAction="never" />
+</menu>

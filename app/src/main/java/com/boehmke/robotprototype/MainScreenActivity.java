@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -102,6 +103,12 @@ public class MainScreenActivity extends Activity {
         } else {
             Toast.makeText(this, "LE support.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainscreen, menu);
+        return true;
     }
 
     private View.OnClickListener clickButton = new View.OnClickListener() {
