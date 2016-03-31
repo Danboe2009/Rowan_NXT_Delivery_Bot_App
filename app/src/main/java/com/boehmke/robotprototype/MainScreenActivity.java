@@ -8,10 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -31,10 +34,12 @@ public class MainScreenActivity extends Activity {
     private TextView currentX;
     private EditText messageText;
     private Intent serviceIntent;
+
     private Button connectBut;
     private Button msgBut;
     private Button readBut;
     private Button wayBut;
+    private Button testBut;
 
     private ImageButton upBut;
     private ImageButton downBut;
@@ -43,7 +48,7 @@ public class MainScreenActivity extends Activity {
 
     private Boolean connected;
 
-    private BT_Comm btComm;
+    private static BT_Comm btComm;
 
     private static final String TAG = "Robot Prototype";
 
@@ -65,6 +70,7 @@ public class MainScreenActivity extends Activity {
         msgBut = (Button) findViewById(R.id.msgButton);
         readBut = (Button) findViewById(R.id.readButton);
         wayBut = (Button) findViewById(R.id.setWaypoint);
+        testBut = (Button) findViewById(R.id.testButton);
 
         upBut = (ImageButton) findViewById(R.id.upButton);
         downBut = (ImageButton) findViewById(R.id.downButton);
@@ -75,6 +81,7 @@ public class MainScreenActivity extends Activity {
         msgBut.setOnClickListener(clickButton);
         readBut.setOnClickListener(clickButton);
         wayBut.setOnClickListener(clickButton);
+        testBut.setOnClickListener(clickButton);
 
         upBut.setOnClickListener(clickButton);
         downBut.setOnClickListener(clickButton);
@@ -91,7 +98,38 @@ public class MainScreenActivity extends Activity {
         Log.d("Robot Prototype", "App Started.");
 
         btComm = new BT_Comm();
+
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            Toast.makeText(this, "No LE support.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "LE support.", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainscreen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_main:
+                startActivity(new Intent(getApplicationContext(), MainScreenActivity.class));
+                return true;
+            case R.id.menu_waypoint:
+                startActivity(new Intent(getApplicationContext(), WaypointActivity.class));
+                return true;
+            case R.id.menu_database:
+                startActivity(new Intent(getApplicationContext(), WaypointHistoryActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private View.OnClickListener clickButton = new View.OnClickListener() {
         public void onClick(View v) {
@@ -104,12 +142,12 @@ public class MainScreenActivity extends Activity {
                         connection.setText("Connected");
                         connection.setTextColor(Color.GREEN);
                     }
-                    setVisible();
+                    //setVisible();
                     break;
                 case R.id.msgButton:
                     input();
                     //Log.d(TAG,"" + Integer.valueOf(messageText.getText().toString()));
-                    sendMessage(Integer.valueOf(messageText.getText().toString()));
+                    sendMessage(Integer.parseInt(messageText.getText().toString()));
                     break;
                 case R.id.readButton:
                     input();
@@ -117,6 +155,10 @@ public class MainScreenActivity extends Activity {
                     break;
                 case R.id.setWaypoint:
                     openWaypoint();
+                    break;
+                case R.id.testButton:
+                    input();
+                    testNav();
                     break;
             }
         }
@@ -246,7 +288,7 @@ public class MainScreenActivity extends Activity {
         }
     }
 
-    public void sendMessage(int value) {
+    public static void sendMessage(int value) {
         try {
             btComm.writeMessage(value);
             Log.d(TAG, "Message sent: " + value);
@@ -257,7 +299,7 @@ public class MainScreenActivity extends Activity {
 
     public void readMessage() {
         sendMessage(5);
-        float msg = btComm.readMessage();
+        String msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
         currentX.setText("" + msg);
     }
@@ -276,6 +318,22 @@ public class MainScreenActivity extends Activity {
     public void stopped(){
         connection.setText("Stopped");
         connection.setTextColor(Color.RED);
-        //readMessage();
+        readMessage();
+    }
+
+    public void testNav() {
+        sendMessage(6);
+        sendMessage(10);
+        sendMessage(0);
+        sendMessage(0);
+        sendMessage(-2);
+    }
+
+    public static void navigate(Waypoint w) {
+        sendMessage(6);
+        sendMessage((int) w.getX());
+        sendMessage((int) w.getY());
+        sendMessage((int) w.getHeading());
+        sendMessage(-2);
     }
 }

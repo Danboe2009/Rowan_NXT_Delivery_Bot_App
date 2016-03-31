@@ -6,9 +6,9 @@ import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.UUID;
 
 public class BT_Comm {
@@ -46,8 +46,8 @@ public class BT_Comm {
 
         if (connSock != null) {
             try {
-                OutputStreamWriter out = new OutputStreamWriter(connSock.getOutputStream());
-                out.write(nxt);
+                DataOutputStream out = new DataOutputStream(connSock.getOutputStream());
+                out.writeInt(nxt);
                 out.flush();
                 //Log.d(TAG, "Write Successful!");
                 //Thread.sleep(1000);
@@ -61,7 +61,7 @@ public class BT_Comm {
         }
     }
 
-    public float readMessage() {
+    public String readMessage() {
         BluetoothSocket connSock;
         float x;
         float y;
@@ -85,17 +85,18 @@ public class BT_Comm {
                 Log.d(TAG, "Y = " + y);
                 Log.d(TAG, "h = " + h);
 
-                return x;
+                String cat = " x = " + x + " y = " + y + " heading = " + h;
+                return cat;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 Log.d(TAG,"Exception");
-                return -1;
+                return "-1";
             }
         } else {
             //Error
             Log.d(TAG,"Error");
-            return -1;
+            return "-1";
         }
     }
 }
