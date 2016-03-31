@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -78,6 +80,30 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         saveBut.setOnClickListener(this);
         listBut.setOnClickListener(this);
         pointsBut.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainscreen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_main:
+                startActivity(new Intent(getApplicationContext(), MainScreenActivity.class));
+                return true;
+            case R.id.menu_waypoint:
+                startActivity(new Intent(getApplicationContext(), WaypointActivity.class));
+                return true;
+            case R.id.menu_database:
+                startActivity(new Intent(getApplicationContext(), WaypointHistoryActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

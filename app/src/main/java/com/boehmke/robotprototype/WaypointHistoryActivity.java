@@ -1,7 +1,10 @@
 package com.boehmke.robotprototype;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -30,5 +33,29 @@ public class WaypointHistoryActivity extends Activity {
         ListAdapter customAdapter = new ListAdapter(this, R.layout.activity_history, items);
 
         listView.setAdapter(customAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainscreen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_main:
+                startActivity(new Intent(getApplicationContext(), MainScreenActivity.class));
+                return true;
+            case R.id.menu_waypoint:
+                startActivity(new Intent(getApplicationContext(), WaypointActivity.class));
+                return true;
+            case R.id.menu_database:
+                startActivity(new Intent(getApplicationContext(), WaypointHistoryActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -8,60 +8,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textColor="@color/white"
         android:id="@+id/textName" />
 
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:id="@+id/editName" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="X"
-        android:textColor="@color/white"
         android:id="@+id/textX" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:id="@+id/editX" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Y"
-        android:textColor="@color/white"
         android:id="@+id/textY" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:id="@+id/editY" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heading"
-        android:textColor="@color/white"
         android:id="@+id/textHeading" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:id="@+id/editHeading" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Is an Office"
-        android:textColor="@color/white"
         android:id="@+id/officeBox"
         android:layout_gravity="left|center_horizontal"
         android:checked="false" />
