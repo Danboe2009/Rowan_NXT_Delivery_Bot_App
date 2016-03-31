@@ -99,7 +99,13 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
                 startActivity(new Intent(getApplicationContext(), WaypointActivity.class));
                 return true;
             case R.id.menu_database:
-                startActivity(new Intent(getApplicationContext(), WaypointHistoryActivity.class));
+                if (database.countCases() > 0) {
+                    Intent myIntent = new Intent(this, WaypointHistoryActivity.class);
+                    myIntent.putExtra("waypoints", database.getWaypoints());
+                    startActivity(myIntent);
+                } else {
+                    Toast.makeText(this, "Database is empty", Toast.LENGTH_LONG).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

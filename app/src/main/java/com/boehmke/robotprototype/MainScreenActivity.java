@@ -123,7 +123,13 @@ public class MainScreenActivity extends Activity {
                 startActivity(new Intent(getApplicationContext(), WaypointActivity.class));
                 return true;
             case R.id.menu_database:
-                startActivity(new Intent(getApplicationContext(), WaypointHistoryActivity.class));
+                if (WaypointActivity.database.countCases() > 0) {
+                    Intent myIntent = new Intent(this, WaypointHistoryActivity.class);
+                    myIntent.putExtra("waypoints", WaypointActivity.database.getWaypoints());
+                    startActivity(myIntent);
+                } else {
+                    Toast.makeText(this, "Database is empty", Toast.LENGTH_LONG).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
