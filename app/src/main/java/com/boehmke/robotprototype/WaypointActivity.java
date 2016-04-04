@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -73,9 +74,9 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         officeBox = (CheckBox) findViewById(R.id.officeBox);
 
         nameEdit.setText(R.string.elonMusk);
-        xEdit.setText("" + MainScreenActivity.X);
-        yEdit.setText("" + MainScreenActivity.Y);
-        headEdit.setText("" + MainScreenActivity.Head);
+        xEdit.setText("" + new DecimalFormat("#").format(MainScreenActivity.X));
+        yEdit.setText("" + new DecimalFormat("#").format(MainScreenActivity.Y));
+        headEdit.setText("" + new DecimalFormat("#").format(MainScreenActivity.Head));
 
         saveBut.setOnClickListener(this);
         listBut.setOnClickListener(this);
