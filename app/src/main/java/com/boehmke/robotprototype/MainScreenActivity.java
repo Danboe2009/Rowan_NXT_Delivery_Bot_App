@@ -52,6 +52,10 @@ public class MainScreenActivity extends Activity {
 
     private static final String TAG = "Robot Prototype";
 
+    public static float X;
+    public static float Y;
+    public static float Head;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -271,27 +275,6 @@ public class MainScreenActivity extends Activity {
     private void input() {
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
-    }
-
-    private void setVisible() {
-        if(connected)
-        {
-            upBut.setVisibility(View.VISIBLE);
-            downBut.setVisibility(View.VISIBLE);
-            leftBut.setVisibility(View.VISIBLE);
-            rightBut.setVisibility(View.VISIBLE);
-            msgBut.setVisibility(View.VISIBLE);
-            readBut.setVisibility(View.VISIBLE);
-            currentX.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            upBut.setVisibility(View.INVISIBLE);
-            downBut.setVisibility(View.INVISIBLE);
-            leftBut.setVisibility(View.INVISIBLE);
-            rightBut.setVisibility(View.INVISIBLE);
-            msgBut.setVisibility(View.INVISIBLE);
-        }
     }
 
     public static void sendMessage(int value) {

@@ -72,10 +72,10 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         headEdit = (EditText) findViewById(R.id.editHeading);
         officeBox = (CheckBox) findViewById(R.id.officeBox);
 
-        nameEdit.setText("Elon Musk");
-        xEdit.setText("0.0");
-        yEdit.setText("0.0");
-        headEdit.setText("0.0");
+        nameEdit.setText(R.string.elonMusk);
+        xEdit.setText("" + MainScreenActivity.X);
+        yEdit.setText("" + MainScreenActivity.Y);
+        headEdit.setText("" + MainScreenActivity.Head);
 
         saveBut.setOnClickListener(this);
         listBut.setOnClickListener(this);

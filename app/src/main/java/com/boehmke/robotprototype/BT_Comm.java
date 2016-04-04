@@ -86,6 +86,9 @@ public class BT_Comm {
                 Log.d(TAG, "h = " + h);
 
                 String cat = " x = " + x + " y = " + y + " heading = " + h;
+                MainScreenActivity.X = x;
+                MainScreenActivity.Y = y;
+                MainScreenActivity.Head = h;
                 return cat;
             } catch (IOException e) {
                 // TODO Auto-generated catch block

@@ -9,6 +9,7 @@
     <string name="bill_amount_label">Bill Amount</string>
     <string name="tip_percent_label">Tip Percent</string>
     <string name="date">Date</string>
+    <string name="elonMusk">Dr. Elon Musk</string>
 
     <string-array name="office_arrays">
         <item>Dr. H</item>
