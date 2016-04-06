@@ -155,10 +155,11 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
             for (Waypoint way : points) {
                 data.add(way.getName());
             }
+
+            Toast.makeText(this, "Waypoint saved.", Toast.LENGTH_SHORT).show();
         }
         catch (NumberFormatException nfe) {
-            Toast t = Toast.makeText(this,"Invalid coordinates/heading.", Toast.LENGTH_LONG);
-            t.show();
+            Toast.makeText(this,"Invalid coordinates/heading.", Toast.LENGTH_LONG).show();
         }
     }
 

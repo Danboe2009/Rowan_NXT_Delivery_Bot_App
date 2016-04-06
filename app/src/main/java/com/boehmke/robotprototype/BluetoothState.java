@@ -15,6 +15,8 @@ import java.util.TimerTask;
 
 /**
  * Created by Dan Boehmke on 2/29/2016.
+ *
+ * Class for Bluetooth State.
  */
 public class BluetoothState extends Service {
 
@@ -40,13 +42,18 @@ public class BluetoothState extends Service {
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             //Log.d("Robot Prototype", "State Changed!");
-            if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) {
-                intent.putExtra("State", "0");
-            } else if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
-                intent.putExtra("State", "1");
+            if (mBluetoothAdapter != null) {
+                if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) {
+                    intent.putExtra("State", "0");
+                } else if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
+                    intent.putExtra("State", "1");
+                }
+                sendBroadcast(intent);
+                handler.postDelayed(this, 1000); // 5 seconds
             }
-            sendBroadcast(intent);
-            handler.postDelayed(this, 1000); // 5 seconds
+            else {
+                // allows the app to run on an emulator without crashing
+            }
         }
     };
 
