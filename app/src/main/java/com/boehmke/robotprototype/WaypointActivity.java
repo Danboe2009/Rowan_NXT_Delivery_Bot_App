@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Dan Boehmke on 3/21/2016.
+ *
+ * Activity class for creating a new waypoint.
  */
 public class WaypointActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -84,7 +86,7 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mainscreen, menu);
+        getMenuInflater().inflate(R.menu.main_screen, menu);
         return true;
     }
 
@@ -141,16 +143,22 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
     }
 
     public void makeWaypoint() {
-        Waypoint tempWay = new Waypoint(nameEdit.getText().toString(),
-                Float.parseFloat(xEdit.getText().toString()),
-                Float.parseFloat(yEdit.getText().toString()),
-                Float.parseFloat(headEdit.getText().toString()),
-                officeBox.isChecked());
-        database.addWaypoint(tempWay);
+        try {
+            Waypoint tempWay = new Waypoint(nameEdit.getText().toString(),
+                    Float.parseFloat(xEdit.getText().toString()),
+                    Float.parseFloat(yEdit.getText().toString()),
+                    Float.parseFloat(headEdit.getText().toString()),
+                    officeBox.isChecked());
+            database.addWaypoint(tempWay);
 
-        points = database.getWaypoints();
-        for (Waypoint way : points) {
-            data.add(way.getName());
+            points = database.getWaypoints();
+            for (Waypoint way : points) {
+                data.add(way.getName());
+            }
+        }
+        catch (NumberFormatException nfe) {
+            Toast t = Toast.makeText(this,"Invalid coordinates/heading.", Toast.LENGTH_LONG);
+            t.show();
         }
     }
 

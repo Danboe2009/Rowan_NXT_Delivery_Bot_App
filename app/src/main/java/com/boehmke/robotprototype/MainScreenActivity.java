@@ -108,7 +108,7 @@ public class MainScreenActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mainscreen, menu);
+        getMenuInflater().inflate(R.menu.main_screen, menu);
         return true;
     }
 
@@ -138,7 +138,7 @@ public class MainScreenActivity extends Activity {
                     input();
                     connected = btComm.connectToNXTs();
                     Log.d(TAG, connected.toString());
-                    if (connected == true) {
+                    if (connected) {
                         connection.setText("Connected");
                         connection.setTextColor(Color.GREEN);
                     }

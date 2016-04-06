@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Dan Boehmke on 3/7/2016.
+ *
+ * Activity class for viewing list of saved waypoints.
  */
 public class WaypointHistoryActivity extends Activity {
 
@@ -37,7 +39,7 @@ public class WaypointHistoryActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mainscreen, menu);
+        getMenuInflater().inflate(R.menu.main_screen, menu);
         return true;
     }
 

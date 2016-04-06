@@ -25,6 +25,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
         android:id="@+id/editX" />
 
     <TextView
@@ -36,6 +37,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
         android:id="@+id/editY" />
 
     <TextView
@@ -47,6 +49,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
         android:id="@+id/editHeading" />
 
     <CheckBox

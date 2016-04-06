@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_main"
+        android:title="Main Menu"
+        android:icon="@drawable/robot64"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/menu_waypoint"
+        android:title="Add Waypoint"
+        android:icon="@drawable/robot64"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/menu_database"
+        android:title="Waypoint Database"
+        android:icon="@drawable/robot64"
+        android:showAsAction="never" />
+</menu>
