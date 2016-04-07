@@ -48,6 +48,7 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
             TextView tt2 = (TextView) v.findViewById(R.id.xTextView);
             TextView tt3 = (TextView) v.findViewById(R.id.yTextView);
             TextView tt4 = (TextView) v.findViewById(R.id.headingTextView);
+            TextView isOfficeView = (TextView) v.findViewById(R.id.isOfficeTextView);
             Button deleteButton = (Button) v.findViewById(R.id.deleteButton);
             Button navigateButton = (Button) v.findViewById(R.id.navigateButton);
 
@@ -58,6 +59,14 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
             navigateButton.setContentDescription(String.valueOf(p.getId()));
 
             parentContext = parent.getContext();
+
+            if (p.isOffice()) {
+                isOfficeView.setText("(Office)");
+                Log.d("Waypoint", "is office = true");
+            }
+            else {
+                Log.d("Waypoint", "is office = false");
+            }
 
             if (tt1 != null) {
                 tt1.setText(p.getName());
@@ -97,7 +106,7 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
             case R.id.navigateButton:
                 Log.d(TAG, "Navigate: " + v.getContentDescription());
                 Waypoint w = WaypointActivity.database.getWaypoint(Integer.parseInt(v.getContentDescription().toString()));
-                Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading() + w.isOffice(), Toast.LENGTH_SHORT).show();
                 MainScreenActivity.navigate(w);
                 break;
         }

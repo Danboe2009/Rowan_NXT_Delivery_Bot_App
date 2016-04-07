@@ -2,6 +2,8 @@ package com.boehmke.robotprototype;
 
 /**
  * Created by Dan Boehmke on 3/23/2016.
+ *
+ * Waypoint used to guide robot.
  */
 public class Waypoint implements java.io.Serializable {
     private long id;
@@ -68,7 +70,7 @@ public class Waypoint implements java.io.Serializable {
     }
 
     public void setOfficeString(String office) {
-        isOffice = office == "true";
+        isOffice = office.equals("true");
     }
 
     public long getId() {

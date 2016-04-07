@@ -23,6 +23,15 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/isOfficeTextView"
+                android:layout_toRightOf="@id/nameTextView"
+                android:textStyle="bold"
+                android:paddingLeft="9dp"
+                android:textSize="18sp"/>
+
+            <TextView
                 android:id="@+id/xTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
