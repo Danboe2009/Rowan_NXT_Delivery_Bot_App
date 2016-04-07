@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Dan Boehmke on 3/28/2016.
+ *
+ * Database helper for database of waypoints.
  */
 public class WaypointDatabaseHelper extends SQLiteOpenHelper {
 
@@ -133,7 +135,7 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
                 tempWay.setX(Float.parseFloat(cursor.getString(2)));
                 tempWay.setY(Float.parseFloat(cursor.getString(3)));
                 tempWay.setHeading(Float.parseFloat(cursor.getString(4)));
-                tempWay.setOfficeString(cursor.getString(5));
+                tempWay.setOfficeString(cursor.getString(5)); Log.d("Database", cursor.getString(5));
             }
 
             cursor.moveToNext();
