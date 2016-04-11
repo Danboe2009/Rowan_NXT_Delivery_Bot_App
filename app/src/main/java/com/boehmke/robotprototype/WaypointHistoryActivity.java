@@ -3,12 +3,15 @@ package com.boehmke.robotprototype;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dan Boehmke on 3/7/2016.
@@ -19,6 +22,7 @@ public class WaypointHistoryActivity extends Activity {
     private static final String TAG = "Robot Prototype";
 
     ListView listView;
+    TextView noWaypointTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class WaypointHistoryActivity extends Activity {
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.waypointsListView);
+        noWaypointTextView = (TextView) findViewById(R.id.noWaypointTextView);
 
         // get the items for the feed
         ArrayList<Waypoint> items = (ArrayList<Waypoint>) getIntent().getExtras().getSerializable("waypoints");
@@ -34,6 +39,11 @@ public class WaypointHistoryActivity extends Activity {
         ListAdapter customAdapter = new ListAdapter(this, R.layout.activity_history, items);
 
         listView.setAdapter(customAdapter);
+
+        List<Waypoint> waypointList = WaypointActivity.database.getWaypoints();
+        for (Waypoint w : waypointList) {
+            Log.d("WP" + w.getName(), String.valueOf(w.getId()));
+        }
     }
 
     @Override
@@ -63,6 +73,16 @@ public class WaypointHistoryActivity extends Activity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void refreshAdapter() {
+        ArrayList<Waypoint> items = WaypointActivity.database.getWaypoints();
+        if (items != null) {
+            listView.setAdapter(new ListAdapter(this, R.layout.activity_history, items));
+        } else {
+            listView.setAdapter(new ListAdapter(this, R.layout.activity_history, new ArrayList<Waypoint>()));
+            noWaypointTextView.setText("No waypoints saved!");
         }
     }
 }

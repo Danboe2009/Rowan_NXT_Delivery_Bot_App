@@ -1,7 +1,7 @@
 package com.boehmke.robotprototype;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +22,11 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
     // Logcat tag
     private static final String TAG = "Robot Prototype";
 
-    public ListAdapter(Context context, int textViewResourceId) {
+    public ListAdapter(Activity context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public ListAdapter(Context context, int resource, List<Waypoint> items) {
+    public ListAdapter(Activity context, int resource, List<Waypoint> items) {
         super(context, resource, items);
     }
 
@@ -86,13 +86,16 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
                 Log.d(TAG, "Delete: " + v.getContentDescription());
                 WaypointActivity.database.deleteWaypoint(v.getContentDescription().toString());
                 Toast.makeText(v.getContext(), "Entry Deleted.", Toast.LENGTH_SHORT).show();
+                Log.d("DELETING", v.getContentDescription().toString());
+                notifyDataSetChanged();
+                /*Toast.makeText(v.getContext(), "Entry Deleted.", Toast.LENGTH_SHORT).show();
                 if (WaypointActivity.database.countCases() > 0) {
                     Intent myIntent = new Intent(parentContext, WaypointHistoryActivity.class);
                     myIntent.putExtra("waypoints", WaypointActivity.database.getWaypoints());
                     parentContext.startActivity(myIntent);
                 } else {
                     parentContext.startActivity(new Intent(parentContext, WaypointActivity.class));
-                }
+                }*/
                 break;
             case R.id.navigateButton:
                 Log.d(TAG, "Navigate: " + v.getContentDescription());

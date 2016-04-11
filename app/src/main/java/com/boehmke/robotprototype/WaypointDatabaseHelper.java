@@ -134,6 +134,7 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
                 tempWay.setY(Float.parseFloat(cursor.getString(3)));
                 tempWay.setHeading(Float.parseFloat(cursor.getString(4)));
                 tempWay.setOfficeString(cursor.getString(5));
+                Log.d("Database", cursor.getString(5));
             }
 
             cursor.moveToNext();
