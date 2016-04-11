@@ -72,10 +72,6 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
 
             if (p.isOffice()) {
                 isOfficeView.setText("(Office)");
-                Log.d("Waypoint", "is office = true");
-            }
-            else {
-                Log.d("Waypoint", "is office = false");
             }
 
             if (tt1 != null) {

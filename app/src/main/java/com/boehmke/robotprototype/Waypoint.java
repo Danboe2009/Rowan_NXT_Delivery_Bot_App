@@ -69,10 +69,6 @@ public class Waypoint implements java.io.Serializable {
         isOffice = office;
     }
 
-    public void setOfficeString(String office) {
-        isOffice = office.equals("true");
-    }
-
     public long getId() {
         return id;
     }
