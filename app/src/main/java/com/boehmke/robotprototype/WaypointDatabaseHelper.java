@@ -92,8 +92,8 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
                 tempWay.setX(Float.parseFloat(cursor.getString(2)));
                 tempWay.setY(Float.parseFloat(cursor.getString(3)));
                 tempWay.setHeading(Float.parseFloat(cursor.getString(4)));
-                tempWay.setOfficeString(cursor.getString(5));
-
+                boolean isOffice = cursor.getString(5).equals("1");
+                tempWay.setOffice(isOffice);
                 tempList.add(tempWay);
 
                 cursor.moveToNext();
@@ -133,7 +133,8 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
                 tempWay.setX(Float.parseFloat(cursor.getString(2)));
                 tempWay.setY(Float.parseFloat(cursor.getString(3)));
                 tempWay.setHeading(Float.parseFloat(cursor.getString(4)));
-                tempWay.setOfficeString(cursor.getString(5));
+                boolean isOffice = cursor.getString(5).equals("1");
+                tempWay.setOffice(isOffice);
                 Log.d("Database", cursor.getString(5));
             }
 

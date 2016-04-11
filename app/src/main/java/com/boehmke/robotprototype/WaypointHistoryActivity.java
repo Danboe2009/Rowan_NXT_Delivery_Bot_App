@@ -34,7 +34,8 @@ public class WaypointHistoryActivity extends Activity {
         noWaypointTextView = (TextView) findViewById(R.id.noWaypointTextView);
 
         // get the items for the feed
-        ArrayList<Waypoint> items = (ArrayList<Waypoint>) getIntent().getExtras().getSerializable("waypoints");
+        //ArrayList<Waypoint> items = (ArrayList<Waypoint>) getIntent().getExtras().getSerializable("waypoints");
+        ArrayList<Waypoint> items = WaypointActivity.database.getWaypoints();
 
         ListAdapter customAdapter = new ListAdapter(this, R.layout.activity_history, items);
 

@@ -2,6 +2,7 @@ package com.boehmke.robotprototype;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,17 +18,25 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
         implements View.OnClickListener {
 
     Context parentContext;
+    Activity activity;
     Waypoint p;
+    DataSetObserver observer;
 
     // Logcat tag
     private static final String TAG = "Robot Prototype";
 
     public ListAdapter(Activity context, int textViewResourceId) {
         super(context, textViewResourceId);
+        this.activity = context;
+        observer = new WaypointHistoryObserver(activity);
+        registerDataSetObserver(observer);
     }
 
     public ListAdapter(Activity context, int resource, List<Waypoint> items) {
         super(context, resource, items);
+        this.activity = context;
+        observer = new WaypointHistoryObserver(activity);
+        registerDataSetObserver(observer);
     }
 
     @Override
@@ -48,6 +57,7 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
             TextView tt2 = (TextView) v.findViewById(R.id.xTextView);
             TextView tt3 = (TextView) v.findViewById(R.id.yTextView);
             TextView tt4 = (TextView) v.findViewById(R.id.headingTextView);
+            TextView isOfficeView = (TextView) v.findViewById(R.id.isOfficeTextView);
             Button deleteButton = (Button) v.findViewById(R.id.deleteButton);
             Button navigateButton = (Button) v.findViewById(R.id.navigateButton);
 
@@ -58,6 +68,13 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
             navigateButton.setContentDescription(String.valueOf(p.getId()));
 
             parentContext = parent.getContext();
+
+            if (p.isOffice()) {
+                isOfficeView.setText("(Office)");
+                Log.d("Waypoint", "is office = true");
+            } else {
+                Log.d("Waypoint", "is office = false");
+            }
 
             if (tt1 != null) {
                 tt1.setText(p.getName());
