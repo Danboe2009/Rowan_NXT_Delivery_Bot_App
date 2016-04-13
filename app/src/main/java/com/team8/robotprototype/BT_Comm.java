@@ -1,4 +1,4 @@
-package com.boehmke.robotprototype;
+package com.team8.robotprototype;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -71,7 +71,7 @@ public class BT_Comm {
 
         if (connSock != null) {
             try {
-               //Log.d(TAG,"line 1");
+                //Log.d(TAG,"line 1");
                 //InputStreamReader in = new InputStreamReader(connSock.getInputStream());
                 BufferedReader in = new BufferedReader(new InputStreamReader(connSock.getInputStream()));
                 //Log.d(TAG,"line 2");
@@ -93,12 +93,12 @@ public class BT_Comm {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                Log.d(TAG,"Exception");
+                Log.d(TAG, "Exception");
                 return "-1";
             }
         } else {
             //Error
-            Log.d(TAG,"Error");
+            Log.d(TAG, "Error");
             return "-1";
         }
     }

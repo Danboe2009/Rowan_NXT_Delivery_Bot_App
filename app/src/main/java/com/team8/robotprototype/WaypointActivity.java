@@ -1,4 +1,4 @@
-package com.boehmke.robotprototype;
+package com.team8.robotprototype;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -115,24 +115,24 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
 
     @Override
     public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.saveButton:
-                    makeWaypoint();
-                    break;
-                case R.id.listButton:
-                    if (database.countCases() > 0) {
-                        Intent myIntent = new Intent(this, WaypointHistoryActivity.class);
-                        myIntent.putExtra("waypoints", database.getWaypoints());
-                        startActivity(myIntent);
-                    } else {
-                        Toast.makeText(this, "Database is empty", Toast.LENGTH_LONG).show();
-                    }
-                    break;
-                case R.id.testPointsButton:
-                    setTestPoints();
-                    break;
-            }
+        switch (v.getId()) {
+            case R.id.saveButton:
+                makeWaypoint();
+                break;
+            case R.id.listButton:
+                if (database.countCases() > 0) {
+                    Intent myIntent = new Intent(this, WaypointHistoryActivity.class);
+                    myIntent.putExtra("waypoints", database.getWaypoints());
+                    startActivity(myIntent);
+                } else {
+                    Toast.makeText(this, "Database is empty", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.testPointsButton:
+                setTestPoints();
+                break;
         }
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -143,6 +143,7 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
+
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }

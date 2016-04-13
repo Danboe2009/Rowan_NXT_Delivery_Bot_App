@@ -1,4 +1,4 @@
-package com.boehmke.robotprototype;
+package com.team8.robotprototype;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -293,18 +293,17 @@ public class MainScreenActivity extends Activity {
         currentX.setText("" + msg);
     }
 
-    public void openWaypoint(){
-        Intent myIntent = new Intent(this,WaypointActivity.class);
+    public void openWaypoint() {
+        Intent myIntent = new Intent(this, WaypointActivity.class);
         startActivity(myIntent);
     }
 
-    public void driving()
-    {
+    public void driving() {
         connection.setText("Driving");
         connection.setTextColor(Color.GREEN);
     }
 
-    public void stopped(){
+    public void stopped() {
         connection.setText("Stopped");
         connection.setTextColor(Color.RED);
         readMessage();

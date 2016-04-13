@@ -1,4 +1,4 @@
-package com.boehmke.robotprototype;
+package com.team8.robotprototype;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -7,11 +7,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Dan Boehmke on 2/29/2016.
