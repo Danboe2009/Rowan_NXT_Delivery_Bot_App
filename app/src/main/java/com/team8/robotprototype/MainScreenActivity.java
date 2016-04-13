@@ -369,10 +369,33 @@ public class MainScreenActivity extends Activity {
                 }
             }
         }
+
+        ArrayList<Waypoint> path = new ArrayList<>();
+        int index = 0;
+        boolean goalReached = false;
+
         if (curr.getId() + (waypoints.size() / 2) > goal.getId()) {
-
+            //increment
+            for (int i = (int) curr.getId(); !goalReached; i = (1 + i) % waypoints.size()) {
+                if (waypoints.get(i).getId() == goal.getId()) {
+                    goalReached = true;
+                    path.add(index++, waypoints.get(i));
+                } else if (!waypoints.get(i).isOffice()) {
+                    //add intersection
+                    path.add(index++, waypoints.get(i));
+                }
+            }
         } else {
-
+            //decrement
+            for (int i = (int) curr.getId(); !goalReached; i = (i - 1) % waypoints.size()) {
+                if (waypoints.get(i).getId() == goal.getId()) {
+                    goalReached = true;
+                    path.add(index++, waypoints.get(i));
+                } else if (!waypoints.get(i).isOffice()) {
+                    //add intersection
+                    path.add(index++, waypoints.get(i));
+                }
+            }
         }
     }
 }
