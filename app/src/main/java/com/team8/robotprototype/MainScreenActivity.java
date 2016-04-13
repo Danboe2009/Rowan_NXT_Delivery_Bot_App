@@ -343,7 +343,7 @@ public class MainScreenActivity extends Activity {
             sendMessage((int) w.get(i).getY());
             Log.d(TAG, "navigate: Y");
             sendMessage((int) w.get(i).getHeading());
-            Log.d(TAG, "navigate: Head");
+            Log.d(TAG, "navigate: Heading");
             if (i != w.size() - 1) {
                 sendMessage(1);
                 Log.d(TAG, "navigate: 1");
@@ -358,6 +358,11 @@ public class MainScreenActivity extends Activity {
     public static void selectWaypoints(Waypoint goal) {
         Waypoint curr = null;
         ArrayList<Waypoint> waypoints = WaypointActivity.database.getWaypoints();
+        int temp = 0;
+        /*for (Waypoint w : waypoints)
+        {
+            w.setId(temp++);
+        }*/
 
         if (_onWaypoint) {
             curr = _lastWaypoint;
@@ -373,6 +378,7 @@ public class MainScreenActivity extends Activity {
                             ((actual_y - i) <= waypoints.get(j).getY()) &&
                             (waypoints.get(j).getY() <= (actual_y + i))) {
                         curr = waypoints.get(j);
+                        Log.d(TAG, "curr = " + curr.getName());
                         //navigate(w);
                     }
                 }
@@ -383,9 +389,11 @@ public class MainScreenActivity extends Activity {
         int index = 0;
         boolean goalReached = false;
 
-        if (curr.getId() < goal.getId()) {
+        if (curr.getId() == goal.getId()) {
+            //do nothing
+        } else if (curr.getId() < goal.getId()) {
             //increment
-            for (int i = (int) curr.getId() - 1; !goalReached; i++) {
+            for (int i = (int) curr.getId(); !goalReached; i++) {
                 if (i >= waypoints.size()) {
                     i -= waypoints.size();
                 }
@@ -400,7 +408,7 @@ public class MainScreenActivity extends Activity {
             }
         } else {
             //decrement
-            for (int i = (int) curr.getId() - 1; !goalReached; i = (i - 1)) {
+            for (int i = (int) curr.getId() - 1; !goalReached; i--) {
                 if (i < 0) {
                     i += waypoints.size();
                 }
