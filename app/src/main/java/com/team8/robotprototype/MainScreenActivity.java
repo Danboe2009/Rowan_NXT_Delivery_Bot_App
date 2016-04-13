@@ -33,7 +33,7 @@ public class MainScreenActivity extends Activity {
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ImageView blue;
     private TextView connection;
-    private TextView currentX;
+    private static TextView currentX;
     private TextView currentY;
     private EditText messageText;
     private Intent serviceIntent;
@@ -296,7 +296,7 @@ public class MainScreenActivity extends Activity {
         sendMessage(5);
         String msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
-        //currentX.setText("" + msg);
+        currentX.setText("" + msg);
     }
 
     public void openWaypoint() {
