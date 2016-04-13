@@ -155,13 +155,13 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
     public void setTestPoints() {
         Waypoint zero = new Waypoint("Zero", 0, 0, 0, true);
         database.addWaypoint(zero);
-        Waypoint one = new Waypoint("One", 315, 0, 0, true);
+        Waypoint one = new Waypoint("Intersection", 97, 0, 0, false);
         database.addWaypoint(one);
-        Waypoint two = new Waypoint("Two", 534, 0, 0, true);
+        Waypoint two = new Waypoint("Dr. Elon Musk", 97, -46, 0, true);
         database.addWaypoint(two);
-        Waypoint three = new Waypoint("Three", 1208, 0, 0, true);
+        Waypoint three = new Waypoint("Intersection", 97, -91, 0, false);
         database.addWaypoint(three);
-        Waypoint four = new Waypoint("Four", 1377, 0, 0, true);
+        Waypoint four = new Waypoint("Dr. Chris", 32, -91, 0, true);
         database.addWaypoint(four);
     }
 }
