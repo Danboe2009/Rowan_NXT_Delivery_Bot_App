@@ -118,7 +118,7 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
                 Log.d(TAG, "Navigate: " + v.getContentDescription());
                 Waypoint w = WaypointActivity.database.getWaypoint(Integer.parseInt(v.getContentDescription().toString()));
                 Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading(), Toast.LENGTH_SHORT).show();
-                MainScreenActivity.navigate(w);
+                MainScreenActivity.selectWaypoints(w);
                 break;
         }
     }

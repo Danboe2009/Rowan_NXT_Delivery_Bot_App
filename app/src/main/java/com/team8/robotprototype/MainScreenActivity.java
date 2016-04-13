@@ -334,16 +334,21 @@ public class MainScreenActivity extends Activity {
         _lastWaypoint = w;
     }
 
-    public static void navigate(Waypoint[] w) {
+    public static void navigate(ArrayList<Waypoint> w) {
         sendMessage(6);
-        for (int i = 0; i < w.length; i++) {
-            sendMessage((int) w[i].getX());
-            sendMessage((int) w[i].getY());
-            sendMessage((int) w[i].getHeading());
+        Log.d(TAG, "navigate: 6");
+        for (int i = 0; i < w.size(); i++) {
+            sendMessage((int) w.get(i).getX());
+            Log.d(TAG, "navigate: X");
+            sendMessage((int) w.get(i).getY());
+            Log.d(TAG, "navigate: Y");
+            sendMessage((int) w.get(i).getHeading());
+            Log.d(TAG, "navigate: Head");
         }
         sendMessage(-2);
+        Log.d(TAG, "navigate: -2");
         _onWaypoint = true;
-        _lastWaypoint = w[w.length - 1];
+        _lastWaypoint = w.get(w.size() - 1);
     }
 
     public static void selectWaypoints(Waypoint goal) {
@@ -387,7 +392,10 @@ public class MainScreenActivity extends Activity {
             }
         } else {
             //decrement
-            for (int i = (int) curr.getId(); !goalReached; i = (i - 1) % waypoints.size()) {
+            for (int i = (int) curr.getId(); !goalReached; i = (i - 1)) {
+                if (i < 0) {
+                    i = i + waypoints.size();
+                }
                 if (waypoints.get(i).getId() == goal.getId()) {
                     goalReached = true;
                     path.add(index++, waypoints.get(i));
@@ -397,5 +405,6 @@ public class MainScreenActivity extends Activity {
                 }
             }
         }
+        navigate(path);
     }
 }
