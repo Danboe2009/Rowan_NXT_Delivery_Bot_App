@@ -26,12 +26,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainScreenActivity extends Activity {
 
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ImageView blue;
     private TextView connection;
     private TextView currentX;
+    private TextView currentY;
     private EditText messageText;
     private Intent serviceIntent;
 
@@ -55,6 +58,8 @@ public class MainScreenActivity extends Activity {
     public static float X;
     public static float Y;
     public static float Head;
+    public static boolean _onWaypoint;
+    public static Waypoint _lastWaypoint;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,7 @@ public class MainScreenActivity extends Activity {
         serviceIntent = new Intent(this, BluetoothState.class);
         connection = (TextView) findViewById(R.id.connection);
         currentX = (TextView) findViewById(R.id.currentX);
+        currentY = (TextView) findViewById(R.id.currentY);
         messageText = (EditText) findViewById(R.id.messageText);
 
         connectBut = (Button) findViewById(R.id.connectButton);
@@ -286,11 +292,11 @@ public class MainScreenActivity extends Activity {
         }
     }
 
-    public void readMessage() {
+    public static void readMessage() {
         sendMessage(5);
         String msg = btComm.readMessage();
         Log.d(TAG, "Message read: " + msg);
-        currentX.setText("" + msg);
+        //currentX.setText("" + msg);
     }
 
     public void openWaypoint() {
@@ -301,6 +307,7 @@ public class MainScreenActivity extends Activity {
     public void driving() {
         connection.setText("Driving");
         connection.setTextColor(Color.GREEN);
+        _onWaypoint = false;
     }
 
     public void stopped() {
@@ -323,5 +330,49 @@ public class MainScreenActivity extends Activity {
         sendMessage((int) w.getY());
         sendMessage((int) w.getHeading());
         sendMessage(-2);
+        _onWaypoint = true;
+        _lastWaypoint = w;
+    }
+
+    public static void navigate(Waypoint[] w) {
+        sendMessage(6);
+        for (int i = 0; i < w.length; i++) {
+            sendMessage((int) w[i].getX());
+            sendMessage((int) w[i].getY());
+            sendMessage((int) w[i].getHeading());
+        }
+        sendMessage(-2);
+        _onWaypoint = true;
+        _lastWaypoint = w[w.length - 1];
+    }
+
+    public static void selectWaypoints(Waypoint goal) {
+        Waypoint curr = null;
+        ArrayList<Waypoint> waypoints = WaypointActivity.database.getWaypoints();
+
+        if (_onWaypoint) {
+            curr = _lastWaypoint;
+        } else {
+            readMessage();
+            float actual_x = X;
+            float actual_y = Y;
+
+            for (int i = 50; curr == null; i += 50) {
+                for (int j = 0; j < waypoints.size(); j++) {
+                    if (((actual_x - i) <= waypoints.get(j).getX()) &&
+                            (waypoints.get(j).getX() <= (actual_x + i)) &&
+                            ((actual_y - i) <= waypoints.get(j).getY()) &&
+                            (waypoints.get(j).getY() <= (actual_y + i))) {
+                        curr = waypoints.get(j);
+                        //navigate(w);
+                    }
+                }
+            }
+        }
+        if (curr.getId() + (waypoints.size() / 2) > goal.getId()) {
+
+        } else {
+
+        }
     }
 }
