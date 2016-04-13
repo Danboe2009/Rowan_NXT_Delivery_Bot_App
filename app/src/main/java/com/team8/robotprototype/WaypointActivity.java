@@ -47,21 +47,11 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         points = new ArrayList<>();
         points = database.getWaypoints();
 
-        // Spinner element
-        //Spinner spinner = (Spinner) findViewById(R.id.spinner);
-
-        // Spinner click listener
-        //spinner.setOnItemSelectedListener(this);
-
         if (points != null) {
             for (Waypoint way : points) {
                 data.add(way.getName());
             }
         }
-
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, data);
-        //adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        //spinner.setAdapter(adapter);
 
         saveBut = (Button) findViewById(R.id.saveButton);
         listBut = (Button) findViewById(R.id.listButton);

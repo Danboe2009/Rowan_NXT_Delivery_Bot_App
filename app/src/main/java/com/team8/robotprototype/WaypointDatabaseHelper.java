@@ -87,7 +87,8 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
 
             while (!cursor.isAfterLast()) {
                 Waypoint tempWay = new Waypoint();
-                tempWay.setId(Long.parseLong(cursor.getString(0)));
+                tempWay.setdId(cursor.getString(0));
+                tempWay.setId(tempList.size() + 1);
                 tempWay.setName(cursor.getString(1));
                 tempWay.setX(Float.parseFloat(cursor.getString(2)));
                 tempWay.setY(Float.parseFloat(cursor.getString(3)));

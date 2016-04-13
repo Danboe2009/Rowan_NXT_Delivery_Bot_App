@@ -58,7 +58,7 @@ public class MainScreenActivity extends Activity {
     public static float X;
     public static float Y;
     public static float Head;
-    public static boolean _onWaypoint;
+    public static boolean _onWaypoint = false;
     public static Waypoint _lastWaypoint;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -335,6 +335,7 @@ public class MainScreenActivity extends Activity {
     }
 
     public static void navigate(ArrayList<Waypoint> w) {
+        Log.d(TAG, "Size = " + w.size());
         sendMessage(6);
         Log.d(TAG, "navigate: 6");
         for (int i = 0; i < w.size(); i++) {
@@ -357,12 +358,7 @@ public class MainScreenActivity extends Activity {
 
     public static void selectWaypoints(Waypoint goal) {
         Waypoint curr = null;
-        ArrayList<Waypoint> waypoints = WaypointActivity.database.getWaypoints();
-        int temp = 0;
-        /*for (Waypoint w : waypoints)
-        {
-            w.setId(temp++);
-        }*/
+        ArrayList<Waypoint> waypoints = WaypointHistoryActivity.items;
 
         if (_onWaypoint) {
             curr = _lastWaypoint;

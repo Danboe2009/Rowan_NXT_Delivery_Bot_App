@@ -5,6 +5,7 @@ package com.team8.robotprototype;
  */
 public class Waypoint implements java.io.Serializable {
     private long id;
+    private String dId;
     private String name;
     private float x;
     private float y;
@@ -77,5 +78,13 @@ public class Waypoint implements java.io.Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getdId() {
+        return dId;
+    }
+
+    public void setdId(String dId) {
+        this.dId = dId;
     }
 }

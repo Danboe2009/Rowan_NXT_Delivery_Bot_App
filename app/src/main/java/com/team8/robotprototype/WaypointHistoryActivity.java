@@ -24,6 +24,8 @@ public class WaypointHistoryActivity extends Activity {
     ListView listView;
     TextView noWaypointTextView;
 
+    public static ArrayList<Waypoint> items;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +36,7 @@ public class WaypointHistoryActivity extends Activity {
         noWaypointTextView = (TextView) findViewById(R.id.noWaypointTextView);
 
         // get the items for the feed
-        //ArrayList<Waypoint> items = (ArrayList<Waypoint>) getIntent().getExtras().getSerializable("waypoints");
-        ArrayList<Waypoint> items = WaypointActivity.database.getWaypoints();
+        items = WaypointActivity.database.getWaypoints();
 
         ListAdapter customAdapter = new ListAdapter(this, R.layout.activity_history, items);
 
@@ -78,7 +79,7 @@ public class WaypointHistoryActivity extends Activity {
     }
 
     public void refreshAdapter() {
-        ArrayList<Waypoint> items = WaypointActivity.database.getWaypoints();
+        items = WaypointActivity.database.getWaypoints();
         if (items != null) {
             listView.setAdapter(new ListAdapter(this, R.layout.activity_history, items));
         } else {
