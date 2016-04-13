@@ -344,6 +344,10 @@ public class MainScreenActivity extends Activity {
             Log.d(TAG, "navigate: Y");
             sendMessage((int) w.get(i).getHeading());
             Log.d(TAG, "navigate: Head");
+            if (i != w.size() - 1) {
+                sendMessage(1);
+                Log.d(TAG, "navigate: 1");
+            }
         }
         sendMessage(-2);
         Log.d(TAG, "navigate: -2");
@@ -379,9 +383,13 @@ public class MainScreenActivity extends Activity {
         int index = 0;
         boolean goalReached = false;
 
-        if (curr.getId() + (waypoints.size() / 2) > goal.getId()) {
+        if (curr.getId() < goal.getId()) {
             //increment
-            for (int i = (int) curr.getId(); !goalReached; i = (1 + i) % waypoints.size()) {
+            for (int i = (int) curr.getId() - 1; !goalReached; i++) {
+                if (i >= waypoints.size()) {
+                    i -= waypoints.size();
+                }
+
                 if (waypoints.get(i).getId() == goal.getId()) {
                     goalReached = true;
                     path.add(index++, waypoints.get(i));
@@ -392,9 +400,9 @@ public class MainScreenActivity extends Activity {
             }
         } else {
             //decrement
-            for (int i = (int) curr.getId(); !goalReached; i = (i - 1)) {
+            for (int i = (int) curr.getId() - 1; !goalReached; i = (i - 1)) {
                 if (i < 0) {
-                    i = i + waypoints.size();
+                    i += waypoints.size();
                 }
                 if (waypoints.get(i).getId() == goal.getId()) {
                     goalReached = true;
