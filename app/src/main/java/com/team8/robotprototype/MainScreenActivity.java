@@ -353,12 +353,19 @@ public class MainScreenActivity extends Activity {
         sendMessage(-2);
         Log.d(TAG, "navigate: -2");
         _onWaypoint = true;
-        _lastWaypoint = w.get(w.size() - 1);
+        Log.d(TAG,"Size = " + w.size());
+        if(w.size() != 0) {
+            _lastWaypoint = w.get(w.size() - 1);
+        }
     }
 
     public static void selectWaypoints(Waypoint goal) {
         Waypoint curr = null;
         ArrayList<Waypoint> waypoints = WaypointHistoryActivity.items;
+
+        Log.d(TAG,"ITEMS: " + WaypointHistoryActivity.items.size());
+
+
 
         if (_onWaypoint) {
             curr = _lastWaypoint;
@@ -417,6 +424,9 @@ public class MainScreenActivity extends Activity {
                 }
             }
         }
-        navigate(path);
+        Log.d(TAG,"Path size = " + path.size());
+        if(path.size() != 0) {
+            navigate(path);
+        }
     }
 }
