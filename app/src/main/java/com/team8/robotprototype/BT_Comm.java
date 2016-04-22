@@ -23,10 +23,9 @@ public class BT_Comm {
 
 
     //connect to both NXTs
-    public boolean connectToNXTs() {
+    public boolean connectToNXT() {
         //get the BluetoothDevice of the NXT
-        //BluetoothDevice nxt_1 = localAdapter.getRemoteDevice(nxt1);
-        BluetoothDevice nxt_1 = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(nxt1);
+         BluetoothDevice nxt_1 = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(nxt1);
         //try to connect to the nxt
         try {
             socket_nxt1 = nxt_1.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
