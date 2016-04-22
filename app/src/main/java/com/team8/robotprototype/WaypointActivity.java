@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by Dan Boehmke on 3/21/2016.
  */
-public class WaypointActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class WaypointActivity extends Activity implements  View.OnClickListener {
 
     private ArrayList<Waypoint> points;
     private ArrayList<String> data = new ArrayList<>();
@@ -124,19 +124,6 @@ public class WaypointActivity extends Activity implements AdapterView.OnItemSele
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onItemSelected");
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-    }
-
-    public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
-    }
 
     public void makeWaypoint() {
         Waypoint tempWay = new Waypoint(nameEdit.getText().toString(),

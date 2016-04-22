@@ -152,7 +152,7 @@ public class MainScreenActivity extends Activity {
             switch (v.getId()) {
                 case R.id.connectButton:
                     input();
-                    connected = btComm.connectToNXTs();
+                    connected = btComm.connectToNXT();
                     Log.d(TAG, connected.toString());
                     if (connected == true) {
                         connection.setText("Connected");
