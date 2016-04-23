@@ -27,7 +27,7 @@ public class BluetoothState extends Service {
 
         //Toast toast = Toast.makeText(getApplicationContext(), "Service started", Toast.LENGTH_SHORT).show();
 
-        Log.d("Robot Prototype", "Service Started.");
+        //Log.d("Robot Prototype", "Service Started.");
         handler.removeCallbacks(sendUpdatesToUI);
         handler.postDelayed(sendUpdatesToUI, 1000); // 1 second
     }

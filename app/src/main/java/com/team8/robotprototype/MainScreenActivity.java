@@ -105,7 +105,7 @@ public class MainScreenActivity extends Activity {
 
         CheckBlueTooth();
 
-        Log.d("Robot Prototype", "App Started.");
+       //Log.d("Robot Prototype", "App Started.");
 
         btComm = new BT_Comm();
 
@@ -153,7 +153,7 @@ public class MainScreenActivity extends Activity {
                 case R.id.connectButton:
                     input();
                     connected = btComm.connectToNXT();
-                    Log.d(TAG, connected.toString());
+                    //Log.d(TAG, connected.toString());
                     if (connected == true) {
                         connection.setText("Connected");
                         connection.setTextColor(Color.GREEN);
@@ -286,7 +286,7 @@ public class MainScreenActivity extends Activity {
     public static void sendMessage(int value) {
         try {
             btComm.writeMessage(value);
-            Log.d(TAG, "Message sent: " + value);
+            //Log.d(TAG, "Message sent: " + value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -295,7 +295,7 @@ public class MainScreenActivity extends Activity {
     public static void readMessage() {
         sendMessage(5);
         String msg = btComm.readMessage();
-        Log.d(TAG, "Message read: " + msg);
+        //Log.d(TAG, "Message read: " + msg);
         currentX.setText("" + msg);
     }
 
@@ -335,25 +335,25 @@ public class MainScreenActivity extends Activity {
     }
 
     public static void navigate(ArrayList<Waypoint> w) {
-        Log.d(TAG, "Size = " + w.size());
+        //Log.d(TAG, "Size = " + w.size());
         sendMessage(6);
-        Log.d(TAG, "navigate: 6");
+        //Log.d(TAG, "navigate: 6");
         for (int i = 0; i < w.size(); i++) {
             sendMessage((int) w.get(i).getX());
-            Log.d(TAG, "navigate: X");
+            //Log.d(TAG, "navigate: X");
             sendMessage((int) w.get(i).getY());
-            Log.d(TAG, "navigate: Y");
+            //Log.d(TAG, "navigate: Y");
             sendMessage((int) w.get(i).getHeading());
-            Log.d(TAG, "navigate: Heading");
+            //Log.d(TAG, "navigate: Heading");
             if (i != w.size() - 1) {
                 sendMessage(1);
-                Log.d(TAG, "navigate: 1");
+                //Log.d(TAG, "navigate: 1");
             }
         }
         sendMessage(-2);
-        Log.d(TAG, "navigate: -2");
+        //Log.d(TAG, "navigate: -2");
         _onWaypoint = true;
-        Log.d(TAG,"Size = " + w.size());
+        //Log.d(TAG,"Size = " + w.size());
         if(w.size() != 0) {
             _lastWaypoint = w.get(w.size() - 1);
         }
@@ -363,7 +363,7 @@ public class MainScreenActivity extends Activity {
         Waypoint curr = null;
         ArrayList<Waypoint> waypoints = WaypointHistoryActivity.items;
 
-        Log.d(TAG,"ITEMS: " + WaypointHistoryActivity.items.size());
+        //Log.d(TAG,"ITEMS: " + WaypointHistoryActivity.items.size());
 
 
 
@@ -381,7 +381,7 @@ public class MainScreenActivity extends Activity {
                             ((actual_y - i) <= waypoints.get(j).getY()) &&
                             (waypoints.get(j).getY() <= (actual_y + i))) {
                         curr = waypoints.get(j);
-                        Log.d(TAG, "curr = " + curr.getName());
+                        //Log.d(TAG, "curr = " + curr.getName());
                         //navigate(w);
                     }
                 }
@@ -424,7 +424,7 @@ public class MainScreenActivity extends Activity {
                 }
             }
         }
-        Log.d(TAG,"Path size = " + path.size());
+        //Log.d(TAG,"Path size = " + path.size());
         if(path.size() != 0) {
             navigate(path);
         }

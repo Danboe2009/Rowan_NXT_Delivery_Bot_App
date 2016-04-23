@@ -44,7 +44,7 @@ public class WaypointHistoryActivity extends Activity {
 
         List<Waypoint> waypointList = WaypointActivity.database.getWaypoints();
         for (Waypoint w : waypointList) {
-            Log.d("WP" + w.getName(), String.valueOf(w.getId()));
+            //Log.d("WP" + w.getName(), String.valueOf(w.getId()));
         }
     }
 

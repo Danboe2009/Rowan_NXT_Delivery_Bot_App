@@ -71,9 +71,9 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
 
             if (p.isOffice()) {
                 isOfficeView.setText("(Office)");
-                Log.d("Waypoint", "is office = true");
+                //Log.d("Waypoint", "is office = true");
             } else {
-                Log.d("Waypoint", "is office = false");
+               // Log.d("Waypoint", "is office = false");
             }
 
             if (tt1 != null) {
@@ -100,15 +100,15 @@ public class ListAdapter extends ArrayAdapter<Waypoint>
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.deleteButton:
-                Log.d(TAG, "Delete: " + v.getContentDescription());
+                //Log.d(TAG, "Delete: " + v.getContentDescription());
                 Waypoint way = WaypointHistoryActivity.items.get(Integer.parseInt(v.getContentDescription().toString()) - 1);
                 WaypointActivity.database.deleteWaypoint(way.getdId());
                 Toast.makeText(v.getContext(), "Entry Deleted.", Toast.LENGTH_SHORT).show();
-                Log.d("DELETING", v.getContentDescription().toString());
+                //Log.d("DELETING", v.getContentDescription().toString());
                 notifyDataSetChanged();
                 break;
             case R.id.navigateButton:
-                Log.d(TAG, "Navigate: " + v.getContentDescription());
+                //Log.d(TAG, "Navigate: " + v.getContentDescription());
                 Waypoint w = WaypointHistoryActivity.items.get(Integer.parseInt(v.getContentDescription().toString()) - 1);
                 //Waypoint w = WaypointActivity.database.getWaypoint(Integer.parseInt(v.getContentDescription().toString()));
                 Toast.makeText(v.getContext(), "Name = " + w.getName() + " X = " + w.getX() + " Y = " + w.getY() + " Heading = " + w.getHeading(), Toast.LENGTH_SHORT).show();

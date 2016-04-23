@@ -32,7 +32,7 @@ public class BT_Comm {
             socket_nxt1.connect();
             success = true;
         } catch (IOException e) {
-            Log.d("Robot Prototype", "Err: Device not found or cannot connect");
+            //Log.d("Robot Prototype", "Err: Device not found or cannot connect");
             success = false;
         }
         return success;
@@ -53,7 +53,7 @@ public class BT_Comm {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                Log.d(TAG, "Unable to write");
+                //Log.d(TAG, "Unable to write");
             }
         } else {
             //Error
@@ -80,9 +80,9 @@ public class BT_Comm {
                 //Log.d(TAG,"line y");
                 h = Float.parseFloat(in.readLine());
                 //Log.d(TAG,"line h");
-                Log.d(TAG, "X = " + x);
-                Log.d(TAG, "Y = " + y);
-                Log.d(TAG, "h = " + h);
+                //Log.d(TAG, "X = " + x);
+                //Log.d(TAG, "Y = " + y);
+                //Log.d(TAG, "h = " + h);
 
                 String cat = " x = " + x + " y = " + y + " heading = " + h;
                 MainScreenActivity.X = x;
@@ -92,12 +92,12 @@ public class BT_Comm {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                Log.d(TAG, "Exception");
+                //Log.d(TAG, "Exception");
                 return "-1";
             }
         } else {
             //Error
-            Log.d(TAG, "Error");
+            //Log.d(TAG, "Error");
             return "-1";
         }
     }

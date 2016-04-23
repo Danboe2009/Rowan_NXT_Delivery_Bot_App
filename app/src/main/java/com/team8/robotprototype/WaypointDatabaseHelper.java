@@ -66,7 +66,7 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
         values.put(WAYPOINT_HEAD, way.getHeading());
         values.put(WAYPOINT_OFFICE, way.isOffice());
 
-        Log.d(TAG, "Values = " + values.toString());
+        //Log.d(TAG, "Values = " + values.toString());
 
         SQLiteDatabase db = getWritableDatabase();
         count = db.insert(TABLE_WAYPOINTS, null, values);
@@ -136,7 +136,7 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
                 tempWay.setHeading(Float.parseFloat(cursor.getString(4)));
                 boolean isOffice = cursor.getString(5).equals("1");
                 tempWay.setOffice(isOffice);
-                Log.d("Database", cursor.getString(5));
+                //Log.d("Database", cursor.getString(5));
             }
 
             cursor.moveToNext();
