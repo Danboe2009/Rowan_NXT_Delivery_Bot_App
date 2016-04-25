@@ -286,7 +286,7 @@ public class MainScreenActivity extends Activity {
     public static void sendMessage(int value) {
         try {
             btComm.writeMessage(value);
-            //Log.d(TAG, "Message sent: " + value);
+            Log.d(TAG, "Message sent: " + value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -340,11 +340,11 @@ public class MainScreenActivity extends Activity {
         //Log.d(TAG, "navigate: 6");
         for (int i = 0; i < w.size(); i++) {
             sendMessage((int) w.get(i).getX());
-            //Log.d(TAG, "navigate: X");
+            Log.d(TAG, "navigate: X");
             sendMessage((int) w.get(i).getY());
-            //Log.d(TAG, "navigate: Y");
+            Log.d(TAG, "navigate: Y");
             sendMessage((int) w.get(i).getHeading());
-            //Log.d(TAG, "navigate: Heading");
+            Log.d(TAG, "navigate: Heading");
             if (i != w.size() - 1) {
                 sendMessage(1);
                 //Log.d(TAG, "navigate: 1");
@@ -362,11 +362,7 @@ public class MainScreenActivity extends Activity {
     public static void selectWaypoints(Waypoint goal) {
         Waypoint curr = null;
         ArrayList<Waypoint> waypoints = WaypointHistoryActivity.items;
-
         //Log.d(TAG,"ITEMS: " + WaypointHistoryActivity.items.size());
-
-
-
         if (_onWaypoint) {
             curr = _lastWaypoint;
         } else {

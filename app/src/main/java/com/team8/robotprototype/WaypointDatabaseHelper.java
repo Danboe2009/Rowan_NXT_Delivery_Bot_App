@@ -36,7 +36,7 @@ public class WaypointDatabaseHelper extends SQLiteOpenHelper {
 
     public WaypointDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
-        Log.d(TAG, "Database Loaded");
+        //Log.d(TAG, "Database Loaded");
     }
 
     @Override
